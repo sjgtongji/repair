@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {hot} from 'react-hot-loader';
-
+import {Button} from 'antd';
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -13,6 +13,8 @@ class Home extends Component {
         this.setState({
             count: ++this.state.count
         });
+				//js实现跳转
+				this.props.history.push('/page1');
     }
 
     render() {
@@ -20,7 +22,7 @@ class Home extends Component {
             <div>
                 this is home~<br/>
                 当前计数：{this.state.count}<br/>
-                <button onClick={() => this._handleClick()}>自增</button>
+                <Button onClick={() => this._handleClick()}>自增</Button>
             </div>
         )
     }
