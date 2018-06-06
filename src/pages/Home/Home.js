@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {hot} from 'react-hot-loader';
 import {Button} from 'antd';
+// import * as css from 'css/Home.css';
+var css = require('../../css/Home.css')
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +21,7 @@ class Home extends Component {
 
     render() {
         return (
-            <div>
+            <div className={css.footer}>
                 this is home~<br/>
                 当前计数：{this.state.count}<br/>
                 <Button onClick={() => this._handleClick()}>自增</Button>
