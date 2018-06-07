@@ -1,8 +1,28 @@
 
 .root {
 	background-color:white;
-	height:100%
+	height:100%;
+	padding-top: 10vh;
+	padding-left: 10vw;
+	padding-right: 10vw;
 }
-.flexInput {
-	width : 75vw
+.phonenum {
+
+}
+.codeDiv {
+	margin-top: 5vh;
+	margin-bottom: 10vh
+}
+.code {
+	width: 50vw;
+}
+.send {
+	width: auto;
+}
+.login {
+
+}
+.contact {
+	align-self: flex-end;
+	margin-top: 5vh;
 }
