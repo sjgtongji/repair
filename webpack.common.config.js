@@ -52,7 +52,8 @@ commonConfig = {
             router: path.join(__dirname, 'src/router'),
             actions: path.join(__dirname, 'src/redux/actions'),
             reducers: path.join(__dirname, 'src/redux/reducers'),
-            mock: path.join(__dirname, 'mock')
+            mock: path.join(__dirname, 'mock'),
+            cusComponents: path.join(__dirname, 'src/cusComponents')
         }
     }
 };

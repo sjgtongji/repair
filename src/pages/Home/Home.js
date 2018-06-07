@@ -1,16 +1,6 @@
 import React, {Component} from 'react';
 import {hot} from 'react-hot-loader';
-import IconButton from '@material-ui/core/IconButton';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import { withStyles } from '@material-ui/core/styles';
+import FlexInput from 'cusComponents/FlexInput';
 var css = require('../../css/Home.css')
 var common = require('../../css/common.css')
 var classNames = require('classnames');
@@ -63,26 +53,7 @@ class Home extends Component {
     render() {
         return (
             <div className={classNames(css.root, common.flex, common.vertical, common.justfycenter, common.aligncenter)}>
-						<FormControl className={classNames(styles.margin, styles.textField)}>
-							<InputLabel htmlFor="adornment-password">Password</InputLabel>
-							<Input
-								id="adornment-password"
-								type={this.state.showPassword ? 'text' : 'password'}
-								value={this.state.password}
-								onChange={this.handleChange('password')}
-								endAdornment={
-									<InputAdornment position="end">
-										<IconButton
-											aria-label="Toggle password visibility"
-											onClick={this.handleClickShowPassword}
-											onMouseDown={this.handleMouseDownPassword}
-										>
-											{this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-										</IconButton>
-									</InputAdornment>
-								}
-							/>
-						</FormControl>
+							<FlexInput label='手机号' multiline={true} className={css.flexInput}></FlexInput>
             </div>
         )
     }
@@ -120,21 +91,7 @@ class Home extends Component {
     //
     // }
 }
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  margin: {
-    margin: theme.spacing.unit,
-  },
-  withoutLabel: {
-    marginTop: theme.spacing.unit * 3,
-  },
-  textField: {
-    flexBasis: 200,
-  },
-});
+
 
 const ranges = [
   {
