@@ -1,6 +1,24 @@
 .root {
 	background-color:white;
 	height:100%;
-	padding-left: 2vw;
-	padding-right: 2vw;
+	width: 100%;
+}
+.header {
+	position: fixed;
+	top: 0;
+	height: 10vh;
+	z-index:10;
+}
+.body {
+	position: absolute;
+	top:10vh;
+	bottom: 0;
+	z-index:5;
+	width: 100%;
+}
+.appBar {
+		background-color: #1d8bf1;
+}
+.tab {
+	width : 50vw
 }

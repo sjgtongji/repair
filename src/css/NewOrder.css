@@ -1,0 +1,9 @@
+.root {
+	background-color:white;
+	padding-top: 2vh;
+	padding-left: 5vw;
+	padding-right: 5vw;
+}
+.item{
+	height : 10vh;
+}

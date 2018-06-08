@@ -7,27 +7,51 @@ var css = require('../../css/Orders.css')
 var common = require('../../css/common.css')
 var classNames = require('classnames');
 import * as axios from '../../util/AxiosUtil';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Add from '@material-ui/icons/AddToQueue';
+import Account from '@material-ui/icons/Note';
+import Icon from '@material-ui/core/Icon';
+import NewOrder from 'cusComponents/NewOrder';
+import HistoryOrder from 'cusComponents/HistoryOrder';
 class Orders extends Component {
 		constructor(props) {
 				super(props);
 				this.state = {
+					value: 0,
 				}
 		}
+
+		handleChange = (event, value) => {
+			this.setState({ value }, () => {console.log(this.state);});
+
+		};
 
 		render() {
 				return (
 						<div className={classNames(css.root, common.flex, common.vertical, common.justfystart, common.alignstretch)}>
-							<FlexInput label='手机号' className={css.phonenum}></FlexInput>
-							<div className={classNames(common.flex, common.justfyspacebetween, common.aligncenter,css.codeDiv)}>
-								<FlexInput label='验证码' className={css.code}></FlexInput>
-								<Button variant="contained" color="primary" className={css.send}>
-									发送验证码
-								</Button>
+							<div className={classNames(css.header,common.flex, common.vertical, common.justfystart, common.alignstretch)}>
+								<AppBar position="static" className={css.appBar}>
+									<Tabs
+										value={this.state.value}
+										onChange={this.handleChange}
+										indicatorColor="primary"
+										textColor="inherit"
+										fullWidth={true}
+										className={css.appBar}>
+										<Tab label="新订单"  icon={<Add />} className={css.tab}/>
+										<Tab label="历史订单" icon={<Account />} className={css.tab}/>
+									</Tabs>
+								</AppBar>
 							</div>
-							<Button variant="contained" color="primary" className={css.login}>
-								登录
-							</Button>
-							<Link to="/userinfo" className={css.contact}>联系客服</Link>
+							<div className={classNames(css.body,common.flex, common.vertical, common.justfystart, common.alignstretch)}>
+								{
+									this.state.value === 0 ?
+									<NewOrder></NewOrder>:
+									<HistoryOrder></HistoryOrder>
+								}
+							</div>
 						</div>
 				)
 		}

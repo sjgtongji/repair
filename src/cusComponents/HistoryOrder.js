@@ -15,8 +15,9 @@ import {
 	Button
 }from '@material-ui/core';
 var classNames = require('classnames');
-var common = require('../css/common.css')
-class CusButton extends Component {
+var common = require('../css/common.css');
+var css = require('../css/HistoryOrder.css')
+class HistoryOrder extends Component {
 
 	constructor(props){
 		super(props)
@@ -32,9 +33,8 @@ class CusButton extends Component {
 
 	render() {
 		return (
-			<Button {...this.props}>
-			</Button>
+			<div></div>
 		);
 	}
 }
-export default CusButton;
+export default HistoryOrder;
