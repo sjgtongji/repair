@@ -9,21 +9,21 @@ import App from 'components/App/App';
 renderWithHotReload(App);
 
 if (module.hot) {
-    module.hot.accept('components/App/App', () => {
-        const NextApp = require('components/App/App').default;
-        renderWithHotReload(NextApp);
-    });
+		module.hot.accept('components/App/App', () => {
+				const NextApp = require('components/App/App').default;
+				renderWithHotReload(NextApp);
+		});
 }
 
 function renderWithHotReload(RootElement) {
-    ReactDom.render(
-        <AppContainer>
-            <Provider store={store}>
-                <Router>
-                    <RootElement/>
-                </Router>
-            </Provider>
-        </AppContainer>,
-        document.getElementById('app')
-    )
+		ReactDom.render(
+				<AppContainer>
+						<Provider store={store}>
+								<Router>
+										<RootElement/>
+								</Router>
+						</Provider>
+				</AppContainer>,
+				document.getElementById('app')
+		)
 }

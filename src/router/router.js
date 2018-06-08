@@ -12,21 +12,21 @@ import UserInfo from 'bundle-loader?lazy&name=userInfo!pages/UserInfo/UserInfo';
 import NotFound from 'bundle-loader?lazy&name=notFound!pages/NotFound/NotFound';
 var common = require('../css/common.css');
 const createComponent = (component) => (props) => (
-    <Bundle load={component}>
-        {
-            (Component) => Component ? <Component {...props} /> : <Loading/>
-        }
-    </Bundle>
+		<Bundle load={component}>
+				{
+						(Component) => Component ? <Component {...props} /> : <Loading/>
+				}
+		</Bundle>
 );
 
 export default () => (
-    <div className={common.screen}>
-        <Switch>
-            <Route exact path="/" component={createComponent(Home)}/>
-            <Route path="/page1" component={createComponent(Page1)}/>
-            <Route path="/counter" component={createComponent(Counter)}/>
-            <Route path="/userinfo" component={createComponent(UserInfo)}/>
-            <Route component={createComponent(NotFound)}/>
-        </Switch>
-    </div>
+		<div className={common.screen}>
+				<Switch>
+						<Route exact path="/" component={createComponent(Home)}/>
+						<Route path="/page1" component={createComponent(Page1)}/>
+						<Route path="/counter" component={createComponent(Counter)}/>
+						<Route path="/userinfo" component={createComponent(UserInfo)}/>
+						<Route component={createComponent(NotFound)}/>
+				</Switch>
+		</div>
 );
