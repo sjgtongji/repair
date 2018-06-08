@@ -10,6 +10,7 @@ import Page1 from 'bundle-loader?lazy&name=page1!pages/Page1/Page1';
 import Counter from 'bundle-loader?lazy&name=counter!pages/Counter/Counter';
 import UserInfo from 'bundle-loader?lazy&name=userInfo!pages/UserInfo/UserInfo';
 import NotFound from 'bundle-loader?lazy&name=notFound!pages/NotFound/NotFound';
+import Orders from 'bundle-loader?lazy&name=orders!pages/Orders/Orders';
 var common = require('../css/common.css');
 const createComponent = (component) => (props) => (
 		<Bundle load={component}>
@@ -26,6 +27,7 @@ export default () => (
 						<Route path="/page1" component={createComponent(Page1)}/>
 						<Route path="/counter" component={createComponent(Counter)}/>
 						<Route path="/userinfo" component={createComponent(UserInfo)}/>
+						<Route patch="/orders" component={createComponent(Orders)}></Route>
 						<Route component={createComponent(NotFound)}/>
 				</Switch>
 		</div>
