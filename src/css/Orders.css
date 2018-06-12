@@ -18,7 +18,16 @@
 }
 .appBar {
 		background-color: #1d8bf1;
+		height : 10vh
+}
+.flexContainer {
+	height : 10vh
 }
 .tab {
-	width : 50vw
+	width : 50vw;
+	height : 10vh;
+}
+.icon {
+	width : 3vh;
+	height : 3vh
 }

@@ -1,17 +1,31 @@
 import React, {Component} from 'react';
 
 import Nav from 'components/Nav/Nav';
-import {MuiThemeProvider} from '@material-ui/core';
+import {MuiThemeProvider,createMuiTheme,withTheme} from '@material-ui/core';
 import getRouter from 'router/router';
 var css = require('../../css/common.css');
-export default class App extends Component {
+const theme = createMuiTheme({
+  overrides: {
+    MuiTab: {
+      root: {
+				height : 100,
+				flex : 1,
+				justfyContent : 'center',
+				alignItems : 'center'
+      }
+    },
+  },
+});
+class App extends Component {
 		render() {
 				return (
-						<div className={css.screen}>
-							<MuiThemeProvider >
+						<div className={css.screen} >
+							<MuiThemeProvider theme={theme}>
 								{getRouter()}
 							</MuiThemeProvider>
+
 						</div>
 				)
 		}
 }
+export default withTheme()(App)

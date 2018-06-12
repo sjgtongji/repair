@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import ReactDom from 'react-dom';
 import {
 	IconButton,
 	Input,
@@ -20,6 +21,8 @@ var common = require('../css/common.css');
 var css = require('../css/NewOrder.css')
 import Button from './Button';
 import FlexInput from './FlexInput';
+import Select from './Select';
+const storeList = [{id:1 ,menuName : '南京西路店'},{id:2 ,menuName : '吴江路店'},{id:3,menuName : '茂名北路店'}];
 class NewOrder extends Component {
 
 	constructor(props){
@@ -27,33 +30,44 @@ class NewOrder extends Component {
 		this.state = {
 			title : '',
 			storeId : '',
-			desc : ''
+			storeName : '',
+			desc : '',
+			open : false
 		}
 	}
 
-	static propTypes = {
-		...Button.propTypes
-	}
-
-	static defaulPropTypes = {
-		...Button.defaulPropTypes
+	onStoreChange(event){
+		console.log(event.target.value);
+		let storeName = '';
+		for(var i = 0 ; i < storeList.length ; i++){
+			if(storeList[i].id == event.target.value){
+				storeName = storeList[i].menuName;
+			}
+		}
+		console.log(storeName);
+		this.setState({
+			storeId : event.target.value,
+			storeName : storeName
+		})
 	}
 
 	render() {
 		return (
-			// <div className={classNames(css.root, common.flex, common.vertical, common.justfystart, common.alignstretch)}>
 				<List className={css.list}>
-					<ListItem className={classNames(css.item , common.flex, common.vertical, common.justfyend, common.alignstretch)}>
-						<div className={classNames(common.flex, common.vertical, common.justfyend, common.alignstretch)}>
-							<FlexInput type='text' label='标题' onChange={(event) => this.setState({title : event.target.value})}></FlexInput>
-						</div>
-
-					</ListItem>
 					<ListItem className={classNames(css.item , common.flex, common.vertical, common.justfyend, common.alignstretch)}>
 						<FlexInput type='text' label='标题' onChange={(event) => this.setState({title : event.target.value})}></FlexInput>
 					</ListItem>
+
+					<ListItem className={classNames(css.item , common.flex, common.vertical, common.justfyend, common.alignstretch)}>
+						<FlexInput type='text' label='标题' onChange={(event) => this.setState({title : event.target.value})}></FlexInput>
+					</ListItem>
+
+					<ListItem className={classNames(css.item,common.flex, common.vertical, common.justfyend, common.alignstretch)}>
+						<Select data={storeList} label='选择店铺' value={this.state.storeName} onChange={(event) => this.onStoreChange(event)} ></Select>
+					</ListItem>
+
 				</List>
-			// </div>
+
 		);
 	}
 }

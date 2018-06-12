@@ -32,16 +32,17 @@ class Orders extends Component {
 				return (
 						<div className={classNames(css.root, common.flex, common.vertical, common.justfystart, common.alignstretch)}>
 							<div className={classNames(css.header,common.flex, common.vertical, common.justfystart, common.alignstretch)}>
-								<AppBar position="static" className={css.appBar}>
+								<AppBar position="fixed" className={css.appBar}>
 									<Tabs
 										value={this.state.value}
 										onChange={this.handleChange}
 										indicatorColor="primary"
 										textColor="inherit"
 										fullWidth={true}
-										className={css.appBar}>
-										<Tab label="新订单"  icon={<Add />} className={css.tab}/>
-										<Tab label="历史订单" icon={<Account />} className={css.tab}/>
+										classes={{flexContainer : classNames(css.flexContainer,common.flex, common.justfyspacebetween, common.aligncenter) , root : css.appBar}}
+										centered={true}>
+										<Tab label="新订单"  icon={<Add  classes={{root : css.icon}}/> }  classes={{wrapper : classNames(common.flex, common.vertical, common.justfycenter, common.aligncenter)}}/>
+										<Tab label="历史订单" icon={<Account classes={{root : css.icon}}/>} classes={{wrapper : classNames(common.flex, common.vertical, common.justfycenter, common.aligncenter)}}/>
 									</Tabs>
 								</AppBar>
 							</div>

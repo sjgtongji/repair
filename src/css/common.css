@@ -93,11 +93,14 @@
 
 }
 .inputroot {
-
+	height : 6vh
 }
 .input {
 
 }
 .formcontrol{
 
+}
+.selectOption{
+	font-size: 32px
 }
