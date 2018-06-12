@@ -14,7 +14,6 @@ import {
 	VisibilityOff,
 	Button
 }from '@material-ui/core';
-var classNames = require('classnames');
 var common = require('../css/common.css')
 class CusButton extends Component {
 
@@ -32,7 +31,10 @@ class CusButton extends Component {
 
 	render() {
 		return (
-			<Button {...this.props}>
+			<Button classes={{
+				root : common.button,
+				label : common.label
+			}} {...this.props}>
 			</Button>
 		);
 	}

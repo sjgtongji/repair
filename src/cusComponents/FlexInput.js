@@ -13,7 +13,7 @@ import {
 	Visibility,
 	VisibilityOff
 }from '@material-ui/core';
-var classNames = require('classnames');
+var common = require('../css/common.css')
 class FlexInput extends Component {
 
 	constructor(props){
@@ -34,10 +34,10 @@ class FlexInput extends Component {
 
 	render() {
 		return (
-			<FormControl>
-				<InputLabel htmlFor="adornment-password">{this.props.label}</InputLabel>
+			<FormControl fullWidth={true}>
+				<InputLabel htmlFor="adornment-password" FormLabelClasses={{asterisk : common.inputlabel}}>{this.props.label}</InputLabel>
 				<Input
-					{...this.props}/>
+					classes={{root : common.inputroot}} className={common.input} {...this.props}/>
 			</FormControl>
 		);
 	}
