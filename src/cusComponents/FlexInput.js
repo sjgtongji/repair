@@ -36,8 +36,13 @@ class FlexInput extends Component {
 		return (
 			<FormControl fullWidth={true}>
 				<InputLabel htmlFor="adornment-password" FormLabelClasses={{asterisk : common.inputlabel}}>{this.props.label}</InputLabel>
-				<Input
-					classes={{root : common.inputroot}} className={common.input} {...this.props}/>
+				{
+					this.props.multiline?
+					<Input {...this.props}/>:
+					<Input
+						classes={{root : common.inputroot}} className={common.input} {...this.props}/>
+				}
+
 			</FormControl>
 		);
 	}

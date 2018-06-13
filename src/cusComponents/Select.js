@@ -38,7 +38,7 @@ class CusSelect extends Component {
 	}
 
 	static propTypes = {
-		...TextField.propTypes,
+		...Select.propTypes,
 		label: PropTypes.string.isRequired,
 		data : PropTypes.array.isRequired,
 	}
