@@ -32,6 +32,7 @@ import FlexInput from './FlexInput';
 import Select from './Select';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { withStyles } from '@material-ui/core/styles';
+import * as Constant from '../util/Constant';
 const url = 'http://lorempixel.com/250/150/nature/1/';
 const storeList = [{id:1 ,menuName : '南京西路店'},{id:2 ,menuName : '吴江路店'},{id:3,menuName : '茂名北路店'}];
 const images = [
@@ -71,10 +72,10 @@ class NewOrder extends Component {
 	}
 
 	onAdd(){
-		this.state.imgList.push(3);
-		this.setState({
-			imgList : this.state.imgList
-		})
+		// this.state.imgList.push(3);
+		// this.setState({
+		// 	imgList : this.state.imgList
+		// })
 	}
 
 	onDelete(img){
@@ -150,9 +151,6 @@ class NewOrder extends Component {
 							</ListItem>
 						))
 					}
-
-
-
 				</List>
 
 		);
@@ -205,18 +203,18 @@ const styles = theme => ({
 		alignItems : 'center'
 	},
 	img:{
-		height : 300
+		height : Constant.window.height * 0.3
 	},
 	item : {
-		height : 150,
+		height : Constant.window.height * 0.1,
 		display : 'flex',
 		alignItems : 'center'
 	},
 	itemSmall : {
-		height : 75
+		height : Constant.window.height * 0.05,
 	},
 	itemLarge : {
-		height : 350
+		height : Constant.window.height * 0.3,
 	}
 });
 export default withStyles(styles)(NewOrder);

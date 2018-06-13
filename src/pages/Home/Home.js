@@ -7,6 +7,7 @@ var css = require('../../css/Home.css')
 var common = require('../../css/common.css')
 var classNames = require('classnames');
 import * as axios from '../../util/AxiosUtil';
+import * as Constant from '../../util/Constant';
 const sendExp = '发送验证码';
 const sendInterval = 60;
 class Home extends Component {
@@ -22,7 +23,10 @@ class Home extends Component {
 				}
 				this.countDown.bind(this)
 		}
+		componentDidMount(){
+			console.log(Constant.window.width, Constant.window.height);
 
+		}
 		onLogin(){
 			this.props.history.push('/orders');
 		}
