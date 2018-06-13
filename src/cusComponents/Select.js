@@ -14,7 +14,6 @@ import {
 	MenuItem,
 	Visibility,
 	VisibilityOff,
-	Select,
 	RadioGroup,
 	FormLabel,
 	FormControlLabel,
@@ -23,13 +22,19 @@ import {
 	DialogTitle,
 	List,
 	ListItem,
-	ListItemText
+	ListItemText,
+	Select
 }from '@material-ui/core';
 var common = require('../css/common.css')
+var css = require('../css/Select.css')
 class CusSelect extends Component {
 
 	constructor(props){
 		super(props)
+		this.state = {
+	    selectedOption: '',
+			value : ''
+	  }
 	}
 
 	static propTypes = {
@@ -42,30 +47,46 @@ class CusSelect extends Component {
 		...Select.defaulPropTypes,
 	}
 
-
+	onSelect(event){
+		let id = event.target.value;
+		this.setState({value : id})
+		for(var i = 0 ; i < this.props.data.length ; i++){
+			if(this.props.data[i].id == id){
+				this.props.onChange(this.props.data[i]);
+			}
+		}
+	}
 	render() {
-
 
 		// <TextField
 		// 		fullWidth
 		// 		id="select"
 		// 		select
-		// 		margin="none"
+		// 		margin="normal"
 		// 		classes={{root : common.inputroot}}
 		// 		SelectProps={{
-		// 		  native: true
+		// 			native: true
 		// 		}}
-		// 		{...this.props}>
+		// 		inputProps={{type : 'text'}}
+		// 		{...this.props}
+		// 		onChange={this.onStoreChange.bind(this)}
+		// 		value={this.state.display}>
 		// 		{this.props.data.map(item => (
 		// 			<option key={item.id} value={item.id} className={common.selectOption}>
 		// 				{item.menuName}
 		// 			</option>
 		// 		))}
 		// </TextField>
+
+
+
+
 		return (
+
 			<FormControl fullWidth={true}>
 				<InputLabel>{this.props.label}</InputLabel>
-				<Select {...this.props} input={<Input classes={{root : common.inputroot}} className={common.input}></Input>}>
+				<Select {...this.props} multiple={false} onChange={this.onSelect.bind(this)} value={this.state.value} input={<Input classes={{root : common.inputroot}}></Input>}
+					classes={{icon : css.icon}}>
 					{
 
 						this.props.data.map(item => (
@@ -74,7 +95,6 @@ class CusSelect extends Component {
 					}
 				</Select>
 			</FormControl>
-
 
 		);
 	}

@@ -14,6 +14,12 @@ const theme = createMuiTheme({
 				alignItems : 'center'
       }
     },
+		MuiSvgIcon:{
+			root : {
+				width : 50,
+				height : 50
+			}
+		}
   },
 });
 class App extends Component {

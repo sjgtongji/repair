@@ -104,3 +104,6 @@
 .selectOption{
 	font-size: 32px
 }
+.selectValue{
+	margin-top: 5px;
+}

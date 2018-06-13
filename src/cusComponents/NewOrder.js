@@ -37,17 +37,11 @@ class NewOrder extends Component {
 	}
 
 	onStoreChange(event){
-		console.log(event.target.value);
-		let storeName = '';
-		for(var i = 0 ; i < storeList.length ; i++){
-			if(storeList[i].id == event.target.value){
-				storeName = storeList[i].menuName;
-			}
-		}
-		console.log(storeName);
+
+		console.log(event);
 		this.setState({
-			storeId : event.target.value,
-			storeName : storeName
+			storeId : event.id,
+			storeName : event.menuName
 		})
 	}
 
@@ -63,7 +57,7 @@ class NewOrder extends Component {
 					</ListItem>
 
 					<ListItem className={classNames(css.item,common.flex, common.vertical, common.justfyend, common.alignstretch)}>
-						<Select data={storeList} label='选择店铺' value={this.state.storeName} onChange={(event) => this.onStoreChange(event)} ></Select>
+						<Select data={storeList} label='选择店铺' onChange={(event) => this.onStoreChange(event)}></Select>
 					</ListItem>
 
 				</List>
