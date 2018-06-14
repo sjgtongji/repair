@@ -25,6 +25,8 @@ import {
 import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
 import DeleteIcon from '@material-ui/icons/Delete';
+import SeeIcon from '@material-ui/icons/ZoomIn';
+import CrossIcon from '@material-ui/icons/Close';
 var classNames = require('classnames');
 var common = require('../css/common.css');
 var css = require('../css/NewOrder.css')
@@ -47,7 +49,9 @@ class NewOrder extends Component {
 			storeName : '',
 			desc : '',
 			imgList : [1,2],
-			submitDisabled : false
+			submitDisabled : false,
+			isZoomed : false,
+			zoomUrl : ''
 		}
 	}
 
@@ -83,9 +87,23 @@ class NewOrder extends Component {
 		console.log('onSubmit');
 	}
 
+	onZoom(img){
+		this.setState({
+			isZoomed : true,
+			zoomUrl : url
+		})
+	}
+
+	onZoomEnd(){
+		this.setState({
+			isZoomed : false,
+			zoomUrl : ''
+		})
+	}
 	render() {
 		let imgs = this.state.imgList;
 		const {classes} = this.props;
+		const {isZoomed} = this.state;
 		// <ListItem>
 
 		// </ListItem>
@@ -106,53 +124,70 @@ class NewOrder extends Component {
 
 
 		return (
-				<div className={classes.root}>
-					<div className={classes.item}>
-						<FlexInput type='text' label='标题' onChange={(event) => this.setState({title : event.target.value})}></FlexInput>
-					</div>
-					<div className={classNames(classes.item , classes.itemLarge)}>
-						<FlexInput type='text' label='问题描述' onChange={(event) => this.setState({desc : event.target.value})} multiline rows="6"></FlexInput>
-					</div>
-					<div className={classes.item}>
-						<Select data={storeList} label='选择店铺' onChange={(event) => this.onStoreChange(event)} classes={{root : css.select}}></Select>
-					</div>
+			<div className={classes.root}>
+				{
+					isZoomed ?
+					<div>
+						<img src={url} width={Constant.window.width} height={Constant.window.height} alt=""></img>
+						<div className={classes.crossDiv}>
+							<IconButton>
+								<CrossIcon className={classes.cross} onClick={(event) => this.onZoomEnd()}/>
+							</IconButton>
+						</div>
+					</div>:
 
-					<div className={classNames(classes.item , classes.itemSmall)}>
-						<Typography color="textSecondary">
-							问题图片
-						</Typography>
-					</div>
+					<div className={classes.root}>
+						<div className={classes.item}>
+							<FlexInput type='text' label='标题' onChange={(event) => this.setState({title : event.target.value})}></FlexInput>
+						</div>
+						<div className={classNames(classes.item , classes.itemLarge)}>
+							<FlexInput type='text' label='问题描述' onChange={(event) => this.setState({desc : event.target.value})} multiline rows="6"></FlexInput>
+						</div>
+						<div className={classes.item}>
+							<Select data={storeList} label='选择店铺' onChange={(event) => this.onStoreChange(event)} classes={{root : css.select}}></Select>
+						</div>
+
+						<div className={classNames(classes.item , classes.itemSmall)}>
+							<Typography color="textSecondary">
+								问题图片
+							</Typography>
+						</div>
 
 
-					<div className={classNames(classes.item , classes.itemSmall)}>
-						<CusButton variant="contained" color="primary" onClick={(event) => this.onAdd()}>
-							新增
-							<AddIcon />
-						</CusButton>
-					</div>
-					<div className={classes.imgListRoot}>
-						<GridList cols={3.5} spacing={2} cellHeight={Constant.window.height * 0.25} className={classes.gridList}>
-							{
-								imgs.map((item,i) => (
-									<GridListTile key={i} className={classes.tile}>
-										<img src={url} width={Constant.window.width * 0.25} height={Constant.window.height * 0.25} alt=""></img>
-										<div className={classes.listheader}>
-											<IconButton>
-												<DeleteIcon className={classes.icon} onClick={(event) => this.onDelete(item)}/>
-											</IconButton>
-										</div>
-									</GridListTile>
-								))
-							}
-						</GridList>
-					</div>
-					<div className={classes.item}>
-						<CusButton variant="contained" color="primary" onClick={(event) => this.onSubmit()} disabled={this.state.submitDisabled} className={classes.submit}>
-							提交
-						</CusButton>
-					</div>
+						<div className={classNames(classes.item , classes.itemSmall)}>
+							<CusButton variant="contained" color="primary" onClick={(event) => this.onAdd()}>
+								新增
+								<AddIcon />
+							</CusButton>
+						</div>
+						<div className={classes.imgListRoot}>
+							<GridList cols={3.5} spacing={2} cellHeight={Constant.window.height * 0.25} className={classes.gridList}>
+								{
+									imgs.map((item,i) => (
+										<GridListTile key={i} className={classes.tile}>
+											<img src={url} width={Constant.window.width * 0.25} height={Constant.window.height * 0.25} alt=""></img>
+											<div className={classes.listheader}>
+												<IconButton>
+													<DeleteIcon className={classes.icon} onClick={(event) => this.onDelete(item)}/>
+												</IconButton>
+												<IconButton>
+													<SeeIcon className={classes.icon} onClick={(event) => this.onZoom(item)}/>
+												</IconButton>
+											</div>
+										</GridListTile>
+									))
+								}
+							</GridList>
+						</div>
+						<div className={classes.item}>
+							<CusButton variant="contained" color="primary" onClick={(event) => this.onSubmit()} disabled={this.state.submitDisabled} className={classes.submit}>
+								提交
+							</CusButton>
+						</div>
 
-				</div>
+					</div>
+				}
+			</div>
 
 		);
 	}
@@ -237,6 +272,22 @@ const styles = theme => ({
 	submit: {
 		flex : 1,
 		fontSize : 32
+	},
+	crossDiv : {
+		position : 'absolute',
+		height : Constant.window.height * 0.1,
+		width : Constant.window.width,
+		background: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, ' +
+			'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+		left : 0,
+		right : 0,
+		top : 0,
+		display : 'flex',
+		alignItems : 'center',
+	},
+	cross : {
+		color : 'white',
+		width : 100
 	}
 });
 export default withStyles(styles)(NewOrder);
