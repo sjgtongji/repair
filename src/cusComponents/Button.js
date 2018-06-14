@@ -15,6 +15,8 @@ import {
 	Button
 }from '@material-ui/core';
 var common = require('../css/common.css')
+import * as Constant from '../util/Constant';
+import { withStyles } from '@material-ui/core/styles';
 class CusButton extends Component {
 
 	constructor(props){
@@ -30,13 +32,18 @@ class CusButton extends Component {
 	}
 
 	render() {
+		const {classes} = this.props;
 		return (
 			<Button classes={{
-				root : common.button,
-				label : common.label
+				root : common.button
 			}} {...this.props}>
 			</Button>
 		);
 	}
 }
-export default CusButton;
+const styles = theme => ({
+	root : {
+		height : Constant.window.height * 0.05
+	}
+});
+export default withStyles(styles)(CusButton);

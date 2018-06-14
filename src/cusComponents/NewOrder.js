@@ -33,22 +33,10 @@ import Select from './Select';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { withStyles } from '@material-ui/core/styles';
 import * as Constant from '../util/Constant';
-const url = 'http://lorempixel.com/250/150/nature/1/';
+const url = 'http://b.hiphotos.baidu.com/image/w%3D310/sign=a439f5b24510b912bfc1f0fff3fdfcb5/83025aafa40f4bfb92c52c5d014f78f0f73618a5.jpg';
 const storeList = [{id:1 ,menuName : '南京西路店'},{id:2 ,menuName : '吴江路店'},{id:3,menuName : '茂名北路店'}];
-const images = [
-			{
-				original: 'http://lorempixel.com/1000/600/nature/1/',
-				thumbnail: 'http://lorempixel.com/250/150/nature/1/',
-			},
-			{
-				original: 'http://lorempixel.com/1000/600/nature/2/',
-				thumbnail: 'http://lorempixel.com/250/150/nature/2/'
-			},
-			{
-				original: 'http://lorempixel.com/1000/600/nature/3/',
-				thumbnail: 'http://lorempixel.com/250/150/nature/3/'
-			}
-		]
+import CusButton from './Button';
+
 class NewOrder extends Component {
 
 	constructor(props){
@@ -58,7 +46,8 @@ class NewOrder extends Component {
 			storeId : '',
 			storeName : '',
 			desc : '',
-			imgList : [1,2]
+			imgList : [1,2],
+			submitDisabled : false
 		}
 	}
 
@@ -72,10 +61,11 @@ class NewOrder extends Component {
 	}
 
 	onAdd(){
-		// this.state.imgList.push(3);
-		// this.setState({
-		// 	imgList : this.state.imgList
-		// })
+		console.log('onAdd');
+		this.state.imgList.push(3);
+		this.setState({
+			imgList : this.state.imgList
+		})
 	}
 
 	onDelete(img){
@@ -88,70 +78,81 @@ class NewOrder extends Component {
 			}
 		}
 	}
+
+	onSubmit(){
+		console.log('onSubmit');
+	}
+
 	render() {
 		let imgs = this.state.imgList;
 		const {classes} = this.props;
 		// <ListItem>
-		// 	<GridList cols={1} spacing={2}>
-		// 		{
-		// 			imgs.map((item,i) => (
-		// 				<GridListTile key={i}>
-		// 					<img src={url} className={classes.img}></img>
-		// 					<GridListTileBar
-		// 						title=''
-		// 						titlePosition="top"
-		// 						className={classes.titleBar}
-		// 						actionIcon={
-		// 							<IconButton className={classes.icon} onClick={(event) => this.onDelete(item)}>
-		// 								<DeleteIcon />
-		// 							</IconButton>
-		// 						}
-		// 					/>
-		// 				</GridListTile>
-		// 			))
-		// 		}
-		// 	</GridList>
-		// </ListItem>
-		return (
-				<List className={classes.root}>
-					<ListItem className={classes.item}>
-						<FlexInput type='text' label='标题' onChange={(event) => this.setState({title : event.target.value})}></FlexInput>
-					</ListItem>
-					<ListItem className={classNames(classes.item , classes.itemLarge)}>
-						<FlexInput type='text' label='问题描述' onChange={(event) => this.setState({desc : event.target.value})} multiline rows="6"></FlexInput>
-					</ListItem>
-					<ListItem className={classes.item}>
-						<Select data={storeList} label='选择店铺' onChange={(event) => this.onStoreChange(event)} classes={{root : css.select}}></Select>
-					</ListItem>
 
-					<ListItem className={classNames(classes.item , classes.itemSmall)}>
+		// </ListItem>
+		{/* {
+			imgs.map((item,i) => (
+				<ListItem className={classes.imgRoot} key={i}>
+					<div className={classes.imgRoot}>
+						<div className={classes.imgHeader}>
+							<IconButton className={classes.icon} onClick={(event) => this.onDelete(item)}>
+								<DeleteIcon />
+							</IconButton>
+						</div>
+						<img src={url} className={classes.img}></img>
+					</div>
+				</ListItem>
+			))
+		} */}
+
+
+		return (
+				<div className={classes.root}>
+					<div className={classes.item}>
+						<FlexInput type='text' label='标题' onChange={(event) => this.setState({title : event.target.value})}></FlexInput>
+					</div>
+					<div className={classNames(classes.item , classes.itemLarge)}>
+						<FlexInput type='text' label='问题描述' onChange={(event) => this.setState({desc : event.target.value})} multiline rows="6"></FlexInput>
+					</div>
+					<div className={classes.item}>
+						<Select data={storeList} label='选择店铺' onChange={(event) => this.onStoreChange(event)} classes={{root : css.select}}></Select>
+					</div>
+
+					<div className={classNames(classes.item , classes.itemSmall)}>
 						<Typography color="textSecondary">
 							问题图片
 						</Typography>
-					</ListItem>
+					</div>
 
 
-					<ListItem className={classNames(classes.item , classes.itemSmall)}>
-						<Button variant="contained" color="primary" onClick={(event) => this.onAdd()}>
+					<div className={classNames(classes.item , classes.itemSmall)}>
+						<CusButton variant="contained" color="primary" onClick={(event) => this.onAdd()}>
 							新增
 							<AddIcon />
-						</Button>
-					</ListItem>
-					{
-						imgs.map((item,i) => (
-							<ListItem className={classes.imgRoot} key={i}>
-								<div className={classes.imgRoot}>
-									<div className={classes.imgHeader}>
-										<IconButton className={classes.icon} onClick={(event) => this.onDelete(item)}>
-											<DeleteIcon />
-										</IconButton>
-									</div>
-									<img src={url} className={classes.img}></img>
-								</div>
-							</ListItem>
-						))
-					}
-				</List>
+						</CusButton>
+					</div>
+					<div className={classes.imgListRoot}>
+						<GridList cols={3.5} spacing={2} cellHeight={Constant.window.height * 0.25} className={classes.gridList}>
+							{
+								imgs.map((item,i) => (
+									<GridListTile key={i} className={classes.tile}>
+										<img src={url} width={Constant.window.width * 0.25} height={Constant.window.height * 0.25} alt=""></img>
+										<div className={classes.listheader}>
+											<IconButton>
+												<DeleteIcon className={classes.icon} onClick={(event) => this.onDelete(item)}/>
+											</IconButton>
+										</div>
+									</GridListTile>
+								))
+							}
+						</GridList>
+					</div>
+					<div className={classes.item}>
+						<CusButton variant="contained" color="primary" onClick={(event) => this.onSubmit()} disabled={this.state.submitDisabled} className={classes.submit}>
+							提交
+						</CusButton>
+					</div>
+
+				</div>
 
 		);
 	}
@@ -167,19 +168,21 @@ const styles = theme => ({
 		paddingRight : 10
   },
   gridList: {
-
+		flexWrap: 'nowrap',
+		// Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+		transform: 'translateZ(0)',
+		flex : 1
   },
   title: {
     color: 'white',
   },
 	titleBar: {
-    background:
-      'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
-      'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-		height: 100
+		width : Constant.window.width * 0.25,
+		height : Constant.window.height * 0.05,
   },
 	icon:{
-		color: theme.palette.background.paper,
+		color : 'white',
+		width : 50
 	},
 	imgRootContainer:{
 		flex : 1
@@ -191,19 +194,9 @@ const styles = theme => ({
 		justifyContent : 'flex-start',
 		alignItems : 'stretch'
 	},
-	imgHeader:{
-		background: 'rgba(0,0,0,0.1)',
-		height: 100,
-		position: 'relati',
-		top: 0,
-		left : 0,
-		right : 0,
-		display:'flex',
-		justifyContent : 'flex-end',
-		alignItems : 'center'
-	},
 	img:{
-		height : Constant.window.height * 0.3
+		height : Constant.window.height * 0.25,
+		width : Constant.window.width * 0.25
 	},
 	item : {
 		height : Constant.window.height * 0.1,
@@ -214,7 +207,36 @@ const styles = theme => ({
 		height : Constant.window.height * 0.05,
 	},
 	itemLarge : {
-		height : Constant.window.height * 0.3,
+		height : Constant.window.height * 0.2,
+	},
+	imgListRoot : {
+		height : Constant.window.height * 0.25,
+		display: 'flex',
+		flexWrap: 'wrap',
+		justifyContent: 'flex-start',
+		overflow: 'hidden',
+		backgroundColor: 'gray',
+	},
+	tile : {
+		height : Constant.window.height * 0.25,
+		width : Constant.window.width * 0.25
+	},
+	listheader : {
+		position : 'absolute',
+		height : Constant.window.height * 0.05,
+		width : Constant.window.width * 0.25,
+		background: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, ' +
+			'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+		left : 0,
+		right : 0,
+		top : 0,
+		display : 'flex',
+		alignItems : 'center',
+		paddingLeft : 10
+	},
+	submit: {
+		flex : 1,
+		fontSize : 32
 	}
 });
 export default withStyles(styles)(NewOrder);
