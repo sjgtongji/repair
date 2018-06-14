@@ -45,6 +45,50 @@ var orderList = [
 		title:'咖啡机维修',
 		orderState: '01',
 		createTime: 0
+	},
+	{
+		orderId:3,
+		storeId:1,
+		storeName:'吴江路店',
+		storeAddr:'吴江路店189号',
+		managerId:1,
+		repairmanId:2,
+		title:'咖啡机维修',
+		orderState: '01',
+		createTime: 0
+	},
+	{
+		orderId:4,
+		storeId:1,
+		storeName:'吴江路店',
+		storeAddr:'吴江路店189号',
+		managerId:1,
+		repairmanId:2,
+		title:'咖啡机维修',
+		orderState: '01',
+		createTime: 0
+	},
+	{
+		orderId:2,
+		storeId:1,
+		storeName:'吴江路店',
+		storeAddr:'吴江路店189号',
+		managerId:1,
+		repairmanId:2,
+		title:'咖啡机维修',
+		orderState: '01',
+		createTime: 0
+	},
+	{
+		orderId:5,
+		storeId:1,
+		storeName:'吴江路店',
+		storeAddr:'吴江路店189号',
+		managerId:1,
+		repairmanId:2,
+		title:'咖啡机维修',
+		orderState: '01',
+		createTime: 0
 	}
 ];
 

@@ -21,6 +21,7 @@ import {
 var common = require('../css/common.css')
 import * as Constant from '../util/Constant';
 import { withStyles } from '@material-ui/core/styles';
+import * as DateUtil from '../util/DateUtil';
 class Order extends Component {
 
 	constructor(props){
@@ -49,18 +50,43 @@ class Order extends Component {
 		return (
 			<Card className={classes.card}>
 				<CardContent>
-					<Typography variant="title">
-						{order.title}
-					</Typography>
-					<Typography variant="subheading">
-						{order.storeName}
-					</Typography>
-					<Typography variant="body1" color="error">
-						{this.mapOrderState(order.orderState)}
-					</Typography>
+					<div className={classes.row}>
+						<Typography variant="title">
+							标题:
+						</Typography>
+						<Typography variant="title">
+							{order.title}
+						</Typography>
+					</div>
+					<div className={classes.row}>
+						<Typography variant="subheading">
+							门店:
+						</Typography>
+						<Typography variant="subheading">
+							{order.storeName}
+						</Typography>
+					</div>
+					<div className={classes.lastRow}>
+						<div className={classes.row}>
+							<Typography variant="body1">
+								订单状态:
+							</Typography>
+							<Typography variant="body1" color="error">
+								{this.mapOrderState(order.orderState)}
+							</Typography>
+						</div>
+						<div className={classes.row}>
+							<Typography variant="body1">
+								提交时间:
+							</Typography>
+							<Typography variant="body1">
+								{new Date().format("yyyy-MM-dd hh:mm:ss")}
+							</Typography>
+						</div>
+					</div>
 				</CardContent>
 				<CardActions>
-					<Button size="small">订单详情</Button>
+					<Button size="medium">订单详情</Button>
 				</CardActions>
 			</Card>
 		);
@@ -68,7 +94,25 @@ class Order extends Component {
 }
 const styles = theme => ({
 	card : {
-		height : Constant.window.height * 0.25
+		height : Constant.window.height * 0.25,
+		display : 'flex',
+		flexDirection : 'column',
+		justifyContent : 'space-around',
+		alignItems : 'stretch'
+	},
+	row : {
+		display : 'flex',
+		flexDirection : 'row',
+		justifyContent : 'flex-start',
+		marginTop : 10,
+		marginBottom : 10
+	},
+	lastRow : {
+		display : 'flex',
+		flexDirection : 'row',
+		justifyContent : 'space-between',
+		marginTop : 10,
+		marginBottom : 10
 	}
 });
 export default withStyles(styles)(Order);
