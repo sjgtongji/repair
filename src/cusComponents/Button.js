@@ -14,7 +14,6 @@ import {
 	VisibilityOff,
 	Button
 }from '@material-ui/core';
-var common = require('../css/common.css')
 import * as Constant from '../util/Constant';
 import { withStyles } from '@material-ui/core/styles';
 class CusButton extends Component {
@@ -32,11 +31,9 @@ class CusButton extends Component {
 	}
 
 	render() {
-		const {classes} = this.props;
+		const {classes , className} = this.props;
 		return (
-			<Button classes={{
-				root : common.button
-			}} {...this.props}>
+			<Button className={className , classes.root} {...this.props}>
 			</Button>
 		);
 	}

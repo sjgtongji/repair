@@ -3,10 +3,9 @@ import {hot} from 'react-hot-loader';
 import {Link} from 'react-router-dom';
 import FlexInput from 'cusComponents/FlexInput';
 import Button from 'cusComponents/Button';
-var css = require('../../css/Orders.css')
-var common = require('../../css/common.css')
 var classNames = require('classnames');
 import * as axios from '../../util/AxiosUtil';
+import * as Constant from '../../util/Constant';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -15,6 +14,7 @@ import Account from '@material-ui/icons/Note';
 import Icon from '@material-ui/core/Icon';
 import NewOrder from 'cusComponents/NewOrder';
 import HistoryOrder from 'cusComponents/HistoryOrder';
+import { withStyles } from '@material-ui/core/styles';
 class Orders extends Component {
 		constructor(props) {
 				super(props);
@@ -29,24 +29,25 @@ class Orders extends Component {
 		};
 
 		render() {
+			const {classes} = this.props;
 				return (
-						<div className={classNames(css.root, common.flex, common.vertical, common.justfystart, common.alignstretch)}>
-							<div className={classNames(css.header,common.flex, common.vertical, common.justfystart, common.alignstretch)}>
-								<AppBar position="fixed" className={css.appBar}>
+						<div className={classes.root}>
+							<div className={classes.header}>
+								<AppBar position="fixed" className={classes.appBar}>
 									<Tabs
 										value={this.state.value}
 										onChange={this.handleChange}
 										indicatorColor="primary"
 										textColor="inherit"
 										fullWidth={true}
-										classes={{flexContainer : classNames(css.flexContainer,common.flex, common.justfyspacebetween, common.aligncenter) , root : css.appBar}}
+										classes={{flexContainer : classes.flexContainer , root : classes.appBar}}
 										centered={true}>
-										<Tab label="新订单"  icon={<Add  classes={{root : css.icon}}/> }  classes={{wrapper : classNames(common.flex, common.vertical, common.justfycenter, common.aligncenter)}}/>
-										<Tab label="历史订单" icon={<Account classes={{root : css.icon}}/>} classes={{wrapper : classNames(common.flex, common.vertical, common.justfycenter, common.aligncenter)}}/>
+										<Tab label="新订单"  icon={<Add  classes={{root : classes.icon}}/> }  classes={{wrapper : classes.wrapper}}/>
+										<Tab label="历史订单" icon={<Account classes={{root : classes.icon}}/>} classes={{wrapper : classes.wrapper}}/>
 									</Tabs>
 								</AppBar>
 							</div>
-							<div className={classNames(css.body,common.flex, common.vertical, common.justfystart, common.alignstretch)}>
+							<div className={classes.body}>
 								{
 									this.state.value === 0 ?
 									<NewOrder></NewOrder>:
@@ -57,4 +58,52 @@ class Orders extends Component {
 				)
 		}
 }
-export default hot(module)(Orders);
+const styles = theme => ({
+	root : {
+		height: Constant.window.height,
+		width: Constant.window.width,
+		display : 'flex',
+		flexDirection : 'column',
+		alignItems : 'stretch'
+	},
+	header :{
+		position: 'fixed',
+		top: 0,
+		height: Constant.window.height * 0.1,
+		zIndex:10,
+		display : 'flex',
+		flexDirection : 'column',
+		alignItems : 'stretch'
+	},
+	appBar :{
+			// background-color: #1d8bf1;
+		height : Constant.window.height * 0.1
+	},
+	flexContainer :{
+		height : Constant.window.height * 0.1,
+		display : 'flex',
+		justfyContent : 'space-between',
+		alignItems : 'center'
+	},
+	icon :{
+		width : 50,
+		height : 50
+	},
+	wrapper :{
+		display : 'flex',
+		flexDirection : 'column',
+		justfyContent : 'center',
+		alignItems : 'center'
+	},
+	body: {
+		position: 'absolute',
+		top : Constant.window.height * 0.1,
+		bottom: 0,
+		zIndex:5,
+		width: Constant.window.width,
+		display : 'flex',
+		flexDirection : 'column',
+		alignItems : 'stretch'
+	}
+});
+export default hot(module)(withStyles(styles)(Orders));

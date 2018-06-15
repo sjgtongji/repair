@@ -13,7 +13,9 @@ import {
 	Visibility,
 	VisibilityOff
 }from '@material-ui/core';
-var common = require('../css/common.css')
+import { withStyles } from '@material-ui/core/styles';
+import * as Constant from '../util/Constant';
+var classNames = require('classnames');
 class FlexInput extends Component {
 
 	constructor(props){
@@ -30,22 +32,31 @@ class FlexInput extends Component {
 
 	static defaulPropTypes = {
 		...Input.defaulPropTypes,
+		multiline : false
 	}
 
 	render() {
+		const {classes,className} = this.props;
 		return (
 			<FormControl fullWidth={true}>
-				<InputLabel htmlFor="adornment-password" FormLabelClasses={{asterisk : common.inputlabel}}>{this.props.label}</InputLabel>
+				<InputLabel htmlFor="adornment-password">{this.props.label}</InputLabel>
 				{
 					this.props.multiline?
-					<Input {...this.props}/>:
+					<Input {...this.props} className={classNames(className , classes.cusInput)} classes={{input : classes.cusInput}}/>:
 					<Input
-						classes={{root : common.inputroot}} className={common.input} {...this.props}/>
+						 {...this.props} className={classNames(className, classes.cusroot)} />
 				}
-
 			</FormControl>
 		);
 	}
 }
-
-export default FlexInput;
+const styles = theme => ({
+	cusroot : {
+		height : Constant.window.height * 0.06
+	},
+	cusInput : {
+		height : Constant.window.height * 0.20,
+		fontSize : 36
+	}
+});
+export default withStyles(styles)(FlexInput);

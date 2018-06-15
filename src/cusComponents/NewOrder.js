@@ -141,7 +141,7 @@ class NewOrder extends Component {
 							<FlexInput type='text' label='标题' onChange={(event) => this.setState({title : event.target.value})}></FlexInput>
 						</div>
 						<div className={classNames(classes.item , classes.itemLarge)}>
-							<FlexInput type='text' label='问题描述' onChange={(event) => this.setState({desc : event.target.value})} multiline rows="6"></FlexInput>
+							<FlexInput type='text' label='问题描述' onChange={(event) => this.setState({desc : event.target.value})} multiline rows={6} rowsMax={6}></FlexInput>
 						</div>
 						<div className={classes.item}>
 							<Select data={storeList} label='选择店铺' onChange={(event) => this.onStoreChange(event)} classes={{root : css.select}}></Select>
