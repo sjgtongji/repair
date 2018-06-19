@@ -38,6 +38,7 @@ import * as Constant from '../util/Constant';
 const url = 'http://b.hiphotos.baidu.com/image/w%3D310/sign=a439f5b24510b912bfc1f0fff3fdfcb5/83025aafa40f4bfb92c52c5d014f78f0f73618a5.jpg';
 const storeList = [{id:1 ,menuName : '南京西路店'},{id:2 ,menuName : '吴江路店'},{id:3,menuName : '茂名北路店'}];
 import CusButton from './Button';
+import ImgList from './ImgList';
 
 class NewOrder extends Component {
 
@@ -48,7 +49,7 @@ class NewOrder extends Component {
 			storeId : '',
 			storeName : '',
 			desc : '',
-			imgList : [1,2],
+			imgList : [{imgId : 1 , imgUrl : url},{imgId : null , imgUrl : ''}],
 			submitDisabled : false,
 			isZoomed : false,
 			zoomUrl : ''
@@ -66,7 +67,8 @@ class NewOrder extends Component {
 
 	onAdd(){
 		console.log('onAdd');
-		this.state.imgList.push(3);
+		let length = this.state.imgList.length;
+		this.state.imgList.splice(this.state.imgList.length - 1, 0, {imgId : 1 , imgUrl : url});
 		this.setState({
 			imgList : this.state.imgList
 		})
@@ -104,23 +106,6 @@ class NewOrder extends Component {
 		let imgs = this.state.imgList;
 		const {classes} = this.props;
 		const {isZoomed} = this.state;
-		// <ListItem>
-
-		// </ListItem>
-		{/* {
-			imgs.map((item,i) => (
-				<ListItem className={classes.imgRoot} key={i}>
-					<div className={classes.imgRoot}>
-						<div className={classes.imgHeader}>
-							<IconButton className={classes.icon} onClick={(event) => this.onDelete(item)}>
-								<DeleteIcon />
-							</IconButton>
-						</div>
-						<img src={url} className={classes.img}></img>
-					</div>
-				</ListItem>
-			))
-		} */}
 
 
 		return (
@@ -153,31 +138,8 @@ class NewOrder extends Component {
 							</Typography>
 						</div>
 
-
-						<div className={classNames(classes.item , classes.itemSmall)}>
-							<CusButton variant="contained" color="primary" onClick={(event) => this.onAdd()}>
-								新增
-								<AddIcon />
-							</CusButton>
-						</div>
 						<div className={classes.imgListRoot}>
-							<GridList cols={3.5} spacing={2} cellHeight={Constant.window.height * 0.25} className={classes.gridList}>
-								{
-									imgs.map((item,i) => (
-										<GridListTile key={i} className={classes.tile}>
-											<img src={url} width={Constant.window.width * 0.25} height={Constant.window.height * 0.25} alt=""></img>
-											<div className={classes.listheader}>
-												<IconButton>
-													<DeleteIcon className={classes.icon} onClick={(event) => this.onDelete(item)}/>
-												</IconButton>
-												<IconButton>
-													<SeeIcon className={classes.icon} onClick={(event) => this.onZoom(item)}/>
-												</IconButton>
-											</div>
-										</GridListTile>
-									))
-								}
-							</GridList>
+							<ImgList data={imgs} onDelete={this.onDelete.bind(this)} onAdd={this.onAdd.bind(this)} onZoom={this.onZoom.bind(this)}></ImgList>
 						</div>
 						<div className={classes.item}>
 							<CusButton variant="contained" color="primary" onClick={(event) => this.onSubmit()} disabled={this.state.submitDisabled} className={classes.submit}>
@@ -202,12 +164,7 @@ const styles = theme => ({
 		paddingLeft : 10,
 		paddingRight : 10
   },
-  gridList: {
-		flexWrap: 'nowrap',
-		// Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
-		transform: 'translateZ(0)',
-		flex : 1
-  },
+
   title: {
     color: 'white',
   },
@@ -250,25 +207,11 @@ const styles = theme => ({
 		flexWrap: 'wrap',
 		justifyContent: 'flex-start',
 		overflow: 'hidden',
-		backgroundColor: 'gray',
+		backgroundColor: '#eeeeee',
+		paddingTop : 10,
+		paddingBottom : 10
 	},
-	tile : {
-		height : Constant.window.height * 0.25,
-		width : Constant.window.width * 0.25
-	},
-	listheader : {
-		position : 'absolute',
-		height : Constant.window.height * 0.05,
-		width : Constant.window.width * 0.25,
-		background: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, ' +
-			'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-		left : 0,
-		right : 0,
-		top : 0,
-		display : 'flex',
-		alignItems : 'center',
-		paddingLeft : 10
-	},
+
 	submit: {
 		flex : 1,
 		fontSize : 32
@@ -288,6 +231,18 @@ const styles = theme => ({
 	cross : {
 		color : 'white',
 		width : 100
+	},
+	emptyImg : {
+		display : 'flex',
+		justifyContent : 'center',
+		alignItems : 'center',
+		backgroundColor : 'white',
+		flexDirection : 'column'
+	},
+	grayIcon : {
+		color : '#eeeeee',
+		width : 100,
+		height : 100
 	}
 });
 export default withStyles(styles)(NewOrder);
