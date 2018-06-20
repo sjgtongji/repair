@@ -24,15 +24,34 @@ class Home extends Component {
 		}
 		componentDidMount(){
 			console.log(Constant.window.width, Constant.window.height);
-
+			// axios.post(Constant.openIdLogin , {
+			// 	openId : '123456'
+			// },res => {
+			// 	this.props.history.push('/orders');
+			// })
 		}
 		onLogin(){
-			this.props.history.push('/orders');
+			axios.post(Constant.phoneLogin , {
+				phoneNum : this.state.phonenum,
+				pwd : this.state.code,
+				openId : '111111'
+			},res => {
+				if(this.timer){
+					clearTimeout(this.timer);
+				}
+				this.props.history.push('/orders');
+			})
+
 		}
 
 		onSend(){
-			console.log('onclick');
 			this.countDown(this.state.sendInterval);
+			axios.post(Constant.validateCode , {
+				phoneNum : this.state.phonenum
+			},res => {
+				console.log(res);
+			})
+
 		}
 
 		countDown(interval){
