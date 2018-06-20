@@ -21,7 +21,10 @@ const theme = createMuiTheme({
 				height : 50
 			}
 		}
-  },
+	},
+	palette: {
+    primary: { main: '#1d8bf1' }, // Purple and green play nicely together.
+  }
 });
 class App extends Component {
 		constructor(props){
@@ -40,7 +43,6 @@ class App extends Component {
 							<MuiThemeProvider theme={theme}>
 								{getRouter()}
 							</MuiThemeProvider>
-
 						</div>
 				)
 		}
