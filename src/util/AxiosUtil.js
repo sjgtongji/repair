@@ -12,6 +12,33 @@ export function get(url, callback, fCallback) {
 	})
 }
 
+export function getWX(url, callback, fCallback) {
+	axios({
+		method:"GET",
+		headers:{'Content-type':'application/json','Access-Control-Allow-Origin':'*'},
+		url:url
+	}).then((res) =>{
+		console.log(res);
+	}).catch((e) => {
+		console.log(e);
+	})
+}
+
+export function postWX(url, data, callback, fCallback) {
+	axios({
+		method:"POST",
+		headers:{'Content-type':'application/json','Access-Control-Allow-Origin':'*'},
+		url:url,
+		data:data
+	}).then((res) => {
+		console.log(res);
+		//alert('post-response:'+res);
+		// callback(that,res);
+	}).catch((e) => {
+		console.log(e);
+	})
+}
+
 export function post(url, data, callback, fCallback) {
 	axios({
 		method:"POST",

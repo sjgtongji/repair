@@ -9,6 +9,7 @@ import * as Constant from '../../util/Constant';
 const sendExp = '发送验证码';
 const sendInterval = 60;
 import { withStyles } from '@material-ui/core/styles';
+import * as WXUtil from '../../util/WXUtil';
 class Home extends Component {
 		constructor(props) {
 				super(props);
@@ -31,17 +32,17 @@ class Home extends Component {
 			// })
 		}
 		onLogin(){
-			axios.post(Constant.phoneLogin , {
-				phoneNum : this.state.phonenum,
-				pwd : this.state.code,
-				openId : '111111'
-			},res => {
-				if(this.timer){
-					clearTimeout(this.timer);
-				}
-				this.props.history.push('/orders');
-			})
-
+			// axios.post(Constant.phoneLogin , {
+			// 	phoneNum : this.state.phonenum,
+			// 	pwd : this.state.code,
+			// 	openId : '111111'
+			// },res => {
+			// 	if(this.timer){
+			// 		clearTimeout(this.timer);
+			// 	}
+			// 	this.props.history.push('/orders');
+			// })
+			this.props.history.push('/orders');
 		}
 
 		onSend(){

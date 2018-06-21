@@ -71,8 +71,8 @@ class ImgList extends Component {
                   </GridListTile>:
                   <GridListTile key={i} className={classes.root}>
                     <div className={classes.root}>
-                      <IconButton>
-                        <AddIcon className={classes.grayIcon} onClick={(event) => this.props.onAdd(item)}/>
+                      <IconButton style={{marginBottom : 50}}>
+                        <AddIcon className={classes.addIcon} onClick={(event) => this.props.onAdd(item)}/>
                       </IconButton>
                     </div>
 
@@ -124,5 +124,10 @@ const styles = theme => ({
     color : 'white',
     width : 50
   },
+	addIcon : {
+		color : 'white',
+		width : 100,
+		height : 100
+	}
 });
 export default withStyles(styles)(ImgList);
