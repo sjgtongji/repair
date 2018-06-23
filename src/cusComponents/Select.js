@@ -27,6 +27,8 @@ import {
 }from '@material-ui/core';
 var common = require('../css/common.css')
 var css = require('../css/Select.css')
+import { withStyles } from '@material-ui/core/styles';
+import * as Constant from '../util/Constant';
 class CusSelect extends Component {
 
 	constructor(props){
@@ -80,12 +82,13 @@ class CusSelect extends Component {
 
 
 
-
+		const {classes,className} = this.props;
 		return (
 
 			<FormControl fullWidth={true}>
 				<InputLabel>{this.props.label}</InputLabel>
-				<Select {...this.props} multiple={false} onChange={this.onSelect.bind(this)} value={this.state.value} input={<Input classes={{root : common.inputroot}}></Input>}
+				<Select {...this.props} multiple={false} onChange={this.onSelect.bind(this)} value={this.state.value}
+					input={<Input className={classes.root} margin='dense'></Input>}
 					classes={{icon : css.icon}}>
 					{
 
@@ -99,5 +102,13 @@ class CusSelect extends Component {
 		);
 	}
 }
-
-export default CusSelect;
+const styles = theme => ({
+	root : {
+		height : Constant.window.height * 0.06,
+	},
+	inputMultiline : {
+		height : Constant.window.height * 0.20,
+		fontSize : 36
+	}
+});
+export default withStyles(styles)(CusSelect);

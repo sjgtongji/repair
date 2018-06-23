@@ -3,6 +3,7 @@ import {hot} from 'react-hot-loader';
 import {Link} from 'react-router-dom';
 import FlexInput from 'cusComponents/FlexInput';
 import Button from 'cusComponents/Button';
+import Progress from 'cusComponents/Dialog';
 var classNames = require('classnames');
 import * as axios from '../../util/AxiosUtil';
 import * as Constant from '../../util/Constant';
@@ -19,7 +20,8 @@ class Home extends Component {
 					sendExp: sendExp,
 					sendInterval : sendInterval,
 					sendDisabled : false,
-					loginDisabled : false
+					loginDisabled : false,
+					showProgress : false
 				}
 				this.countDown.bind(this)
 		}
@@ -41,6 +43,9 @@ class Home extends Component {
 			// 		clearTimeout(this.timer);
 			// 	}
 			// 	this.props.history.push('/orders');
+			// })
+			// this.setState({
+			// 	showProgress : true
 			// })
 			this.props.history.push('/orders');
 		}
@@ -95,6 +100,7 @@ class Home extends Component {
 								登录
 							</Button>
 							<Link to="/userinfo" className={classes.contact}>联系客服</Link>
+							<Progress open={this.state.showProgress}></Progress>
 						</div>
 				)
 		}

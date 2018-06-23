@@ -42,19 +42,19 @@ class FlexInput extends Component {
 				<InputLabel htmlFor="adornment-password">{this.props.label}</InputLabel>
 				{
 					this.props.multiline?
-					<Input {...this.props} className={classNames(className , classes.cusInput)} classes={{input : classes.cusInput}}/>:
+					<Input {...this.props} className={classNames(className,classes.inputMultiline)} classes={{input : classes.inputMultiline}}/>:
 					<Input
-						 {...this.props} className={classNames(className, classes.cusroot)} />
+						 {...this.props} className={classNames(className, classes.root)} />
 				}
 			</FormControl>
 		);
 	}
 }
 const styles = theme => ({
-	cusroot : {
+	root : {
 		height : Constant.window.height * 0.06
 	},
-	cusInput : {
+	inputMultiline : {
 		height : Constant.window.height * 0.20,
 		fontSize : 36
 	}
