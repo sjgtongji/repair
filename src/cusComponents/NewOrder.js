@@ -35,6 +35,7 @@ import Select from './Select';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { withStyles } from '@material-ui/core/styles';
 import * as Constant from '../util/Constant';
+import * as WXUtil from '../util/WXUtil';
 const url = 'http://b.hiphotos.baidu.com/image/w%3D310/sign=a439f5b24510b912bfc1f0fff3fdfcb5/83025aafa40f4bfb92c52c5d014f78f0f73618a5.jpg';
 const storeList = [{id:1 ,menuName : '南京西路店'},{id:2 ,menuName : '吴江路店'},{id:3,menuName : '茂名北路店'}];
 import CusButton from './Button';
@@ -49,7 +50,7 @@ class NewOrder extends Component {
 			storeId : '',
 			storeName : '',
 			desc : '',
-			imgList : [{imgId : 1 , imgUrl : url},{imgId : null , imgUrl : ''}],
+			imgList : [{imgId : null , imgUrl : ''}],
 			submitDisabled : false,
 			isZoomed : false,
 			zoomUrl : ''
@@ -65,12 +66,20 @@ class NewOrder extends Component {
 		})
 	}
 
-	onAdd(){
-		console.log('onAdd');
-		let length = this.state.imgList.length;
-		this.state.imgList.splice(this.state.imgList.length - 1, 0, {imgId : 1 , imgUrl : url});
-		this.setState({
-			imgList : this.state.imgList
+	onAdd(item){
+		// console.log('onAdd');
+		// let length = this.state.imgList.length;
+		// this.state.imgList.splice(this.state.imgList.length - 1, 0, {imgId : 1 , imgUrl : url});
+		// this.setState({
+		// 	imgList : this.state.imgList
+		// })
+		WXUtil.chooseImage(imgIds => {
+			console.log(imgIds);
+			item.imgId = imgIds[0];
+			this.state.imgList.push({imgIds : null});
+			this.setState({
+				imgList : this.state.imgList
+			})
 		})
 	}
 
@@ -92,7 +101,7 @@ class NewOrder extends Component {
 	onZoom(img){
 		this.setState({
 			isZoomed : true,
-			zoomUrl : url
+			zoomUrl : img.imgId
 		})
 	}
 
@@ -113,7 +122,7 @@ class NewOrder extends Component {
 				{
 					isZoomed ?
 					<div>
-						<img src={url} width={Constant.window.width} height={Constant.window.height} alt=""></img>
+						<img src={this.state.zoomUrl} width={Constant.window.width} height={Constant.window.height} alt=""></img>
 						<div className={classes.crossDiv}>
 							<IconButton>
 								<CrossIcon className={classes.cross} onClick={(event) => this.onZoomEnd()}/>

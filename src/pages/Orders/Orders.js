@@ -6,6 +6,7 @@ import Button from 'cusComponents/Button';
 var classNames = require('classnames');
 import * as axios from '../../util/AxiosUtil';
 import * as Constant from '../../util/Constant';
+import * as WXUtil from '../../util/WXUtil';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -27,6 +28,14 @@ class Orders extends Component {
 			this.setState({ value }, () => {console.log(this.state);});
 
 		};
+
+		componentDidMount(){
+			console.log(location.href.split('#')[0]);
+			axios.get(Constant.wxSignature +'?url=http://repair.buzztimecoffee.com/' , (res) => {
+				console.log(res);
+				WXUtil.config(res.signature , res.nonceStr, res.timestamp);
+			})
+		}
 
 		render() {
 			const {classes} = this.props;

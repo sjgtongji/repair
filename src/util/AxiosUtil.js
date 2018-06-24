@@ -4,7 +4,7 @@ export function get(url, callback, fCallback) {
 	axios({
 		method:"GET",
 		headers:{'Content-type':'application/json',},
-		url:Constant.apiPath + url
+		url:Constant.isProd ? Constant.apiPath + url : Constant.apiPathDev + url
 	}).then((res) =>{
 		handleRes(res , callback , fCallback);
 	}).catch((e) => {
@@ -43,7 +43,7 @@ export function post(url, data, callback, fCallback) {
 	axios({
 		method:"POST",
 		headers:{'Content-type':'application/json',},
-		url:Constant.apiPath + url,
+		url:Constant.isProd ? Constant.apiPath + url : Constant.apiPathDev + url,
 		data:data
 	}).then((res) => {
 		handleRes(res , callback , fCallback);

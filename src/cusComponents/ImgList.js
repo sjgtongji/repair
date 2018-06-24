@@ -57,7 +57,7 @@ class ImgList extends Component {
                 item.imgId?
                   <GridListTile key={i} className={classes.root}>
                     <div className={classes.root}>
-                      <img src={item.imgUrl} width={Constant.window.width * 0.25} height={Constant.window.height * 0.25} alt=""></img>
+                      <img src={item.imgId} width={Constant.window.width * 0.25} height={Constant.window.height * 0.25} alt=""></img>
                       <div className={classes.listheader}>
                         <IconButton>
                           <DeleteIcon className={classes.icon} onClick={(event) => this.props.onDelete(item)}/>
@@ -71,8 +71,8 @@ class ImgList extends Component {
                   </GridListTile>:
                   <GridListTile key={i} className={classes.root}>
                     <div className={classes.root}>
-                      <IconButton style={{marginBottom : 50}}>
-                        <AddIcon className={classes.addIcon} onClick={(event) => this.props.onAdd(item)}/>
+                      <IconButton>
+                        <AddIcon onClick={(event) => this.props.onAdd(item)}/>
                       </IconButton>
                     </div>
 
