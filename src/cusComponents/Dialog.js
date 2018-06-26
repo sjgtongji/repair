@@ -49,11 +49,6 @@ class CusDialog extends Component {
 		return (
 			<Dialog {...this.props} open={this.props.open} className={styles.root}>
         <CircularProgress className={classes.progress} size={Constant.window.width * 0.1}/>
-				<div className={styles.root}>
-					<Typography color="textSecondary" align='center'>
-						请稍候...
-					</Typography>
-        </div>
 			</Dialog>
 		);
 	}
