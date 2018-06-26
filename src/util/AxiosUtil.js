@@ -3,8 +3,11 @@ import * as Constant from './Constant';
 export function get(url, callback, fCallback) {
 	axios({
 		method:"GET",
-		headers:{'Content-type':'application/json',},
-		url:Constant.isProd ? Constant.apiPath + url : Constant.apiPathDev + url
+		headers:{
+			'Content-type':'application/json',
+			'RestToken':Constant.token
+		},
+		url:Constant.isProd ? Constant.apiPath + url : Constant.apiPath + url
 	}).then((res) =>{
 		handleRes(res , callback , fCallback);
 	}).catch((e) => {
@@ -27,7 +30,11 @@ export function getWX(url, callback, fCallback) {
 export function postWX(url, data, callback, fCallback) {
 	axios({
 		method:"POST",
-		headers:{'Content-type':'application/json','Access-Control-Allow-Origin':'*'},
+		headers:{
+			'Content-type':'application/json',
+			'Access-Control-Allow-Origin':'*',
+			'RestToken':Constant.token
+		},
 		url:url,
 		data:data
 	}).then((res) => {
@@ -43,7 +50,7 @@ export function post(url, data, callback, fCallback) {
 	axios({
 		method:"POST",
 		headers:{'Content-type':'application/json',},
-		url:Constant.isProd ? Constant.apiPath + url : Constant.apiPathDev + url,
+		url:Constant.isProd ? Constant.apiPath + url : Constant.apiPath + url,
 		data:data
 	}).then((res) => {
 		handleRes(res , callback , fCallback);

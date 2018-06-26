@@ -126,8 +126,9 @@ const styles = theme => ({
 	}
 });
 const mapStateToProps = (state) => {
+		console.log(state);
 		return {
-				user: state.user
+			user : state.user
 		}
 };
 
@@ -139,3 +140,5 @@ const mapDispatchToProps = (dispatch) => {
 		}
 };
 export default hot(module)(withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Orders)));
+
+// export default hot(module)(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Orders)));

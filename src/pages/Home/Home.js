@@ -36,7 +36,49 @@ class Home extends Component {
 			// 	this.props.history.push('/orders');
 			// })
 		}
+
+		isPhoneAvailable(phone) {
+			var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+			if (!myreg.test(phone)) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+
+		checkPhonenum(){
+			if(!this.state.phonenum){
+				alert('手机号不能为空')
+				return false;
+			}
+
+			if(!this.isPhoneAvailable){
+				alert('手机号格式不正确')
+				return false;
+			}
+			return true;
+		}
+
+		checkCode(){
+			if(!this.state.code){
+				alert('手机号不能为空')
+				return false
+			}
+			var reg = /[0-9]{4}/;
+			if(!reg.test(this.state.code)){
+				alert('验证码为4位数字')
+				return false
+			}
+			return true;
+		}
 		onLogin(){
+			if(!this.checkPhonenum){
+				return;
+			}
+			if(!this.checkCode){
+				return;
+			}
 			const {login} = this.props;
 			if(Constant.isProd){
 				this.setState({
@@ -54,6 +96,7 @@ class Home extends Component {
 						clearTimeout(this.timer);
 					};
 					login(res);
+					Constant.token = res.token;
 					this.props.history.push('/orders');
 				})
 
@@ -70,6 +113,9 @@ class Home extends Component {
 		}
 
 		onSend(){
+			if(!this.checkPhonenum){
+				return;
+			}
 			this.countDown(this.state.sendInterval);
 			if(Constant.isProd){
 				axios.post(Constant.validateCode , {

@@ -1,21 +1,19 @@
 import {LOGIN} from '../actions/user';
 
 const initState = {
-	user : {
-		roleCode: '00',
-		userId: ''
-	}
+	roleCode: '00',
+	userId: ''
 };
 /*
 * reducer
  */
 export default function reducer(state = initState, action) {
-		console.log(action);
 		switch (action.type) {
 				case LOGIN:
 						return {
               ...state,
-              user : action.user
+							roleCode : action.user.roleCode,
+							userId : action.user.userId
 						};
 				default:
 						return state
