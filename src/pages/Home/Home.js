@@ -11,6 +11,8 @@ const sendExp = '发送验证码';
 const sendInterval = 60;
 import { withStyles } from '@material-ui/core/styles';
 import * as WXUtil from '../../util/WXUtil';
+import {login} from 'actions/user';
+import {connect} from 'react-redux';
 class Home extends Component {
 		constructor(props) {
 				super(props);
@@ -27,6 +29,7 @@ class Home extends Component {
 		}
 		componentDidMount(){
 			console.log(Constant.window.width, Constant.window.height);
+			console.log(this.props);
 			// axios.post(Constant.openIdLogin , {
 			// 	openId : '123456'
 			// },res => {
@@ -34,30 +37,47 @@ class Home extends Component {
 			// })
 		}
 		onLogin(){
-			// axios.post(Constant.phoneLogin , {
-			// 	phoneNum : this.state.phonenum,
-			// 	pwd : this.state.code,
-			// 	openId : '111111'
-			// },res => {
-			// 	if(this.timer){
-			// 		clearTimeout(this.timer);
-			// 	}
-			// 	this.props.history.push('/orders');
-			// })
-			// this.setState({
-			// 	showProgress : true
-			// })
-			this.props.history.push('/orders');
+			const {login} = this.props;
+			if(Constant.isProd){
+				this.setState({
+					showProgress : true
+				})
+				axios.post(Constant.phoneLogin , {
+					phoneNum : this.state.phonenum,
+					pwd : this.state.code,
+					openId : '111111'
+				},res => {
+					this.setState({
+						showProgress : false
+					});
+					if(this.timer){
+						clearTimeout(this.timer);
+					};
+					login(res);
+					this.props.history.push('/orders');
+				})
+
+			}else{
+				login({
+					roleCode: '01',
+					userId: '111'
+				})
+				this.props.history.push('/orders');
+			}
+
+
+
 		}
 
 		onSend(){
 			this.countDown(this.state.sendInterval);
-			axios.post(Constant.validateCode , {
-				phoneNum : this.state.phonenum
-			},res => {
-				console.log(res);
-			})
-
+			if(Constant.isProd){
+				axios.post(Constant.validateCode , {
+					phoneNum : this.state.phonenum
+				},res => {
+					console.log(res);
+				})
+			}
 		}
 
 		countDown(interval){
@@ -136,4 +156,17 @@ const styles = theme => ({
 		fontSize: 32
 	}
 });
-export default hot(module)(withStyles(styles)(Home));
+const mapStateToProps = (state) => {
+		return {
+				user: state.user
+		}
+};
+
+const mapDispatchToProps = (dispatch) => {
+		return {
+				login: (user) => {
+						dispatch(login(user))
+				}
+		}
+};
+export default hot(module)(withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Home)));

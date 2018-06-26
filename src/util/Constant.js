@@ -7,6 +7,7 @@ export const validateCode = 'rest/getValidateCode';
 export const wxSignature = 'wx/getWxSignature';
 export const appId = 'wxa691be29e7554dcc';
 export const appSecret = '19f042bcce790a9fd71e9174651e5a06';
+export const wxUrl = 'http://repair.buzztimecoffee.com/';
 export var window = {
 	width : 0,
 	height : 0

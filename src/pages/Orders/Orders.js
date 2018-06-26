@@ -16,6 +16,8 @@ import Icon from '@material-ui/core/Icon';
 import NewOrder from 'cusComponents/NewOrder';
 import HistoryOrder from 'cusComponents/HistoryOrder';
 import { withStyles } from '@material-ui/core/styles';
+import {login} from 'actions/user';
+import {connect} from 'react-redux';
 class Orders extends Component {
 		constructor(props) {
 				super(props);
@@ -30,11 +32,19 @@ class Orders extends Component {
 		};
 
 		componentDidMount(){
-			console.log(location.href.split('#')[0]);
-			axios.get(Constant.wxSignature +'?url=http://repair.buzztimecoffee.com/' , (res) => {
+			let url = '';
+			if(Constant.isProd)
+				url = Constant.wxUrl;
+			else {
+				url = location.href.split('#')[0];
+			}
+			console.log(url);
+			axios.get(Constant.wxSignature +'?url=' + url , (res) => {
 				console.log(res);
 				WXUtil.config(res.signature , res.nonceStr, res.timestamp);
-			})
+			});
+			console.log(this.props);
+
 		}
 
 		render() {
@@ -59,8 +69,8 @@ class Orders extends Component {
 							<div className={classes.body}>
 								{
 									this.state.value === 0 ?
-									<NewOrder></NewOrder>:
-									<HistoryOrder></HistoryOrder>
+									<NewOrder {...this.props}></NewOrder>:
+									<HistoryOrder {...this.props}></HistoryOrder>
 								}
 							</div>
 						</div>
@@ -115,4 +125,17 @@ const styles = theme => ({
 		alignItems : 'stretch'
 	}
 });
-export default hot(module)(withStyles(styles)(Orders));
+const mapStateToProps = (state) => {
+		return {
+				user: state.user
+		}
+};
+
+const mapDispatchToProps = (dispatch) => {
+		return {
+				login: (user) => {
+						dispatch(login(user))
+				}
+		}
+};
+export default hot(module)(withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Orders)));
