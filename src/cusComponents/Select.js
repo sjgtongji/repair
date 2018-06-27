@@ -51,7 +51,6 @@ class CusSelect extends Component {
 
 	onSelect(event){
 		let id = event.target.value;
-		console.log(id);
 		this.setState({value : id})
 		for(var i = 0 ; i < this.props.data.length ; i++){
 			if(this.props.data[i].storeId == id){

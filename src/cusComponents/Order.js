@@ -45,6 +45,7 @@ class Order extends Component {
 		}
 		return '维修中';
 	}
+
 	render() {
 		const {classes , order} = this.props;
 		return (
@@ -80,13 +81,13 @@ class Order extends Component {
 								提交时间:
 							</Typography>
 							<Typography variant="body1">
-								{new Date().format("yyyy-MM-dd hh:mm:ss")}
+								{new Date(order.createTime * 1).format("yyyy-MM-dd hh:mm:ss")}
 							</Typography>
 						</div>
 					</div>
 				</CardContent>
 				<CardActions>
-					<Button size="medium">订单详情</Button>
+					<Button size="medium" onClick={(event) => this.props.onDetail(order)}>订单详情</Button>
 				</CardActions>
 			</Card>
 		);

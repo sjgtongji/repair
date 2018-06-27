@@ -1,9 +1,10 @@
-import {LOGIN , STORE_LIST} from '../actions/user';
+import {LOGIN , STORE_LIST, ORDER_DETAIL} from '../actions/user';
 
 const initState = {
 	roleCode: '00',
 	userId: '',
-	storeList : []
+	storeList : [],
+	orderId: ''
 };
 /*
 * reducer
@@ -20,6 +21,11 @@ export default function reducer(state = initState, action) {
 						return {
 							...state,
 							storeList : action.storeList
+						}
+				case ORDER_DETAIL:
+						return {
+							...state,
+							orderId : action.orderId
 						}
 				default:
 						return state

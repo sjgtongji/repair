@@ -25,6 +25,7 @@ import * as Constant from '../util/Constant';
 import Order from './Order';
 import Progress from 'cusComponents/Dialog';
 import * as axios from '../util/AxiosUtil';
+import {login,getStoreList,viewOrderDetail} from 'actions/user';
 var orderList = [
 	{
 		orderId:1,
@@ -120,6 +121,10 @@ class HistoryOrder extends Component {
 		})
 	}
 
+	onDetail(order){
+		this.props.viewOrderDetail(order.orderId);
+		this.props.history.push('/orderdetail');
+	}
 	render() {
 		const {classes } = this.props;
 		return (
@@ -128,7 +133,7 @@ class HistoryOrder extends Component {
 					{
 						this.state.list.map((item,i) => (
 							<GridListTile key={i} cols={1} className={classes.tile}>
-								<Order order={item}></Order>
+								<Order order={item} onDetail={(order) => this.onDetail(order)}></Order>
 							</GridListTile>
 						))
 					}
@@ -156,4 +161,24 @@ const styles = theme => ({
 		alignItems:'stretch',
 	}
 });
-export default withStyles(styles)(HistoryOrder);
+const mapStateToProps = (state) => {
+		return {
+			user : {
+				roleCode: state.user.roleCode,
+				userId: state.user.userId,
+				storeList : state.user.storeList
+			}
+		}
+};
+
+const mapDispatchToProps = (dispatch) => {
+		return {
+				getStoreList : (storeList) => {
+					dispatch(getStoreList(storeList))
+				},
+				viewOrderDetail : (orderId) => {
+					dispatch(viewOrderDetail(orderId))
+				}
+		}
+};
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(HistoryOrder));

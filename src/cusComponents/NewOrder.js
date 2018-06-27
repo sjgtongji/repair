@@ -41,6 +41,8 @@ const storeList = [{id:1 ,menuName : '南京西路店'},{id:2 ,menuName : '吴�
 import CusButton from './Button';
 import ImgList from './ImgList';
 import * as axios from '../util/AxiosUtil';
+import {login,getStoreList,viewOrderDetail} from 'actions/user';
+import Progress from 'cusComponents/Dialog';
 class NewOrder extends Component {
 
 	constructor(props){
@@ -53,12 +55,14 @@ class NewOrder extends Component {
 			imgList : [{imgId : null , imgUrl : ''}],
 			submitDisabled : false,
 			isZoomed : false,
-			zoomUrl : ''
+			zoomUrl : '',
+			imgIds : [],
+			showProgress : false
 		}
 	}
 
 	componentDidMount(){
-		console.log(this.props);
+		// console.log(this.props);
 	}
 	onStoreChange(event){
 
@@ -69,65 +73,76 @@ class NewOrder extends Component {
 	}
 
 	onAdd(item){
-		// console.log('onAdd');
-		// let length = this.state.imgList.length;
-		// this.state.imgList.splice(this.state.imgList.length - 1, 0, {imgId : 1 , imgUrl : url});
-		// this.setState({
-		// 	imgList : this.state.imgList
-		// })
-		WXUtil.chooseImage(imgIds => {
-			console.log(imgIds);
-			item.imgId = imgIds[0];
-			this.state.imgList.push({imgIds : null});
-			this.setState({
-				imgList : this.state.imgList
-			})
-			WXUtil.getImgData(imgIds[0], imgData =>{
-				// alert(imgData)
-				alert(Constant.token)
-				axios.post(Constant.uploadImage,
-				{
-					img : imgData
-				}, res => {
-					alert(res)
-				}, error => {
+		if(Constant.isProd){
+			WXUtil.chooseImage(imgIds => {
+				console.log(imgIds);
+				item.imgId = imgIds[0];
+				this.state.imgList.push({imgIds : null});
+				this.setState({
+					imgList : this.state.imgList
+				})
+				WXUtil.getImgData(imgIds[0], imgData =>{
+					// alert(imgData)
+					axios.post(Constant.uploadImage,
+					{
+						img : imgData
+					}, res => {
+						this.state.imgIds.push(res.imgId);
+					}, error => {
 
+					})
 				})
 			})
-		})
+		}
+
 	}
 
 	onDelete(img){
 		for(var i = 0 ; i < this.state.imgList.length ; i++){
 			if(img == this.state.imgList[i]){
-				this.state.imgList.splice(i,1)
+				this.state.imgList.splice(i,1);
 				this.setState({
 					imgList : this.state.imgList
 				})
+				if(i < this.state.imgIds.length){
+					this.state.imgIds.splice(i , 1);
+				}
 			}
 		}
 	}
 
 	onSubmit(){
-		console.log('onSubmit');
-		let imgIds = [];
-		for(var item in this.state.imgList){
-			if(item.imgId){
-				imgIds.push(item.imgId)
+		if(Constant.isProd){
+			this.setState({
+				showProgress : true
+			})
+			let imgIds = [];
+			for(var item in this.state.imgList){
+				if(item.imgId){
+					imgIds.push(item.imgId)
+				}
 			}
+			axios.post(Constant.submitOrder,
+			{
+				managerId: this.props.user.userId,
+				storeId: this.state.storeId,
+				title: this.state.title,
+				desc: this.state.desc,
+				imgs: imgIds
+			}, res => {
+				this.setState({
+					showProgress : false
+				})
+				alert('提交订单成功');
+				this.props.viewOrderDetail(res.orderId)
+				this.props.history.push('/orderdetail');
+			}, error => {
+				this.setState({
+					showProgress : false
+				})
+			})
 		}
-		axios.post(Constant.submitOrder,
-		{
-			managerId: this.props.user.userId,
-			storeId: this.state.storeId,
-			title: this.state.title,
-			desc: this.state.desc,
-			imgs: imgIds
-		}, res => {
 
-		}, error => {
-
-		})
 	}
 
 	onZoom(img){
@@ -190,6 +205,7 @@ class NewOrder extends Component {
 
 					</div>
 				}
+				<Progress open={this.state.showProgress}></Progress>
 			</div>
 
 		);
@@ -202,8 +218,8 @@ const styles = theme => ({
     justifyContent: 'flex-start',
 		alignItems:'stretch',
 		paddingTop : 10,
+		width: Constant.window.width * 0.9
   },
-
   title: {
     color: 'white',
   },
@@ -293,6 +309,9 @@ const mapDispatchToProps = (dispatch) => {
 		return {
 				getStoreList : (storeList) => {
 					dispatch(getStoreList(storeList))
+				},
+				viewOrderDetail : (orderId) => {
+					dispatch(viewOrderDetail(orderId))
 				}
 		}
 };

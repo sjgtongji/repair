@@ -32,15 +32,18 @@ class Orders extends Component {
 		};
 
 		componentDidMount(){
-			// this.wxSign();
-			console.log(this.props);
-			const {user , getStoreList} = this.props;
-			axios.get(Constant.getStoreList +'?userId=' + user.userId , (res) => {
-				console.log(res);
-				this.props.getStoreList(res.storeList)
-			},error => {
+			if(Constant.isProd){
+				this.wxSign();
+				// console.log(this.props);
+				const {user , getStoreList} = this.props;
+				axios.get(Constant.getStoreList +'?userId=' + user.userId , (res) => {
+					// console.log(res);
+					this.props.getStoreList(res.storeList)
+				},error => {
 
-			});
+				});
+			}
+
 		}
 
 		wxSign(){
@@ -98,6 +101,8 @@ const styles = theme => ({
 	header :{
 		position: 'fixed',
 		top: 0,
+		left: 0,
+		right: 0,
 		height: Constant.window.height * 0.1,
 		zIndex:10,
 		display : 'flex',
@@ -128,8 +133,9 @@ const styles = theme => ({
 		position: 'absolute',
 		top : Constant.window.height * 0.1,
 		bottom: 0,
+		left: 0,
+		right: 0,
 		zIndex:5,
-		width: Constant.window.width,
 		display : 'flex',
 		flexDirection : 'column',
 		alignItems : 'stretch'

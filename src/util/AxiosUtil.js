@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as Constant from './Constant';
 export function get(url, callback, fCallback) {
+	console.log('get:' + url);
 	axios({
 		method:"GET",
 		headers:{

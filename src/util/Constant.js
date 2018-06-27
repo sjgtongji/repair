@@ -8,6 +8,7 @@ export const getStoreList = 'rest/getStoreList';
 export const getOrderList = 'rest/getOrderList';
 export const submitOrder = 'rest/submitOrder';
 export const uploadImage = 'rest/uploadImage';
+export const getDetailOrder = 'rest/getDetailOrder';
 export const wxSignature = 'wx/getWxSignature';
 export const appId = 'wxa691be29e7554dcc';
 export const appSecret = '19f042bcce790a9fd71e9174651e5a06';
