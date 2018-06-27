@@ -23,6 +23,8 @@ var css = require('../css/HistoryOrder.css')
 import { withStyles } from '@material-ui/core/styles';
 import * as Constant from '../util/Constant';
 import Order from './Order';
+import Progress from 'cusComponents/Dialog';
+import * as axios from '../util/AxiosUtil';
 var orderList = [
 	{
 		orderId:1,
@@ -97,8 +99,25 @@ class HistoryOrder extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			list : orderList
+			list : [],
+			showProgress : false,
+			step : 0
 		}
+	}
+
+	componentDidMount(){
+		this.setState(
+			showProgress : true
+		)
+		axios.get(Constant.getOrderList + '?userId=' + this.props.user.userId + '&step=' + this.state.step, res => {
+			this.setState({
+				list : res.orderList,
+				showProgress : false,
+				step : this.step + 1
+			})
+		}, error => {
+
+		})
 	}
 
 	render() {
@@ -114,6 +133,7 @@ class HistoryOrder extends Component {
 						))
 					}
 				</GridList>
+				<Progress open={this.state.showProgress}></Progress>
 			</div>
 		);
 	}

@@ -28,15 +28,30 @@ class Home extends Component {
 				this.countDown.bind(this)
 		}
 		componentDidMount(){
-			console.log(Constant.window.width, Constant.window.height);
-			console.log(this.props);
-			// axios.post(Constant.openIdLogin , {
-			// 	openId : '123456'
-			// },res => {
-			// 	this.props.history.push('/orders');
-			// })
+			this.setState({
+				showProgress : true
+			})
+			axios.post(Constant.openIdLogin , {
+				openId : '111111'
+			},res => {
+				this.onLoginSuccess(res);
+			},error => {
+				this.setState({
+					showProgress : false
+				})
+			})
 		}
-
+		onLoginSuccess(res){
+			this.setState({
+				showProgress : false
+			});
+			if(this.timer){
+				clearTimeout(this.timer);
+			};
+			login(res);
+			Constant.token = res.token;
+			this.props.history.push('/orders');
+		}
 		isPhoneAvailable(phone) {
 			var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
 			if (!myreg.test(phone)) {
@@ -89,15 +104,11 @@ class Home extends Component {
 					pwd : this.state.code,
 					openId : '111111'
 				},res => {
+					this.onLoginSuccess(res);
+				},error => {
 					this.setState({
 						showProgress : false
-					});
-					if(this.timer){
-						clearTimeout(this.timer);
-					};
-					login(res);
-					Constant.token = res.token;
-					this.props.history.push('/orders');
+					})
 				})
 
 			}else{

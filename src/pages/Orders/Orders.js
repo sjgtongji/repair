@@ -16,7 +16,7 @@ import Icon from '@material-ui/core/Icon';
 import NewOrder from 'cusComponents/NewOrder';
 import HistoryOrder from 'cusComponents/HistoryOrder';
 import { withStyles } from '@material-ui/core/styles';
-import {login} from 'actions/user';
+import {login,getStoreList} from 'actions/user';
 import {connect} from 'react-redux';
 class Orders extends Component {
 		constructor(props) {
@@ -43,8 +43,12 @@ class Orders extends Component {
 				console.log(res);
 				WXUtil.config(res.signature , res.nonceStr, res.timestamp);
 			});
-			console.log(this.props);
+			const {user , getStoreList} = this.props;
+			axios.get(Constant.getStoreList +'?userId=' + user.userId , (res) => {
+				getStoreList(res.storeList)
+			},error => {
 
+			});
 		}
 
 		render() {
@@ -136,6 +140,9 @@ const mapDispatchToProps = (dispatch) => {
 		return {
 				login: (user) => {
 						dispatch(login(user))
+				},
+				getStoreList : (storeList) => {
+					dispatch(getStoreList(storeList))
 				}
 		}
 };
