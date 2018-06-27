@@ -7,7 +7,7 @@ export function config(signature , nonceStr, timestamp){
 		timestamp: timestamp, // 必填，生成签名的时间戳
 		nonceStr: nonceStr, // 必填，生成签名的随机串
 		signature: signature,// 必填，签名
-		jsApiList: ['chooseImage' , 'getLocalImgData'] // 必填，需要使用的JS接口列表
+		jsApiList: ['chooseImage','previewImage','uploadImage','downloadImage','getLocalImgData'] // 必填，需要使用的JS接口列表
 	},(success) => {
 		console.log(success);
 	});
@@ -23,6 +23,16 @@ export function chooseImage(callback){
 			if(callback){
 				callback(res.localIds);
 			}
+		}
+	});
+}
+
+export function getImgData(localId, callback){
+	wx.getLocalImgData({
+		localId: localId, // 图片的localID
+		success: function (res) {
+			var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
+			callback(res.localData)
 		}
 	});
 }

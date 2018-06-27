@@ -32,6 +32,16 @@ class Orders extends Component {
 		};
 
 		componentDidMount(){
+			this.wxSign();
+			const {user , getStoreList} = this.props;
+			axios.get(Constant.getStoreList +'?userId=' + user.userId , (res) => {
+				getStoreList(res.storeList)
+			},error => {
+
+			});
+		}
+
+		wxSign(){
 			let url = '';
 			if(Constant.isProd)
 				url = Constant.wxUrl;
@@ -43,14 +53,8 @@ class Orders extends Component {
 				console.log(res);
 				WXUtil.config(res.signature , res.nonceStr, res.timestamp);
 			});
-			const {user , getStoreList} = this.props;
-			axios.get(Constant.getStoreList +'?userId=' + user.userId , (res) => {
-				getStoreList(res.storeList)
-			},error => {
 
-			});
 		}
-
 		render() {
 			const {classes} = this.props;
 				return (

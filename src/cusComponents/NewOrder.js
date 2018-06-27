@@ -40,7 +40,7 @@ const url = 'http://b.hiphotos.baidu.com/image/w%3D310/sign=a439f5b24510b912bfc1
 const storeList = [{id:1 ,menuName : '南京西路店'},{id:2 ,menuName : '吴江路店'},{id:3,menuName : '茂名北路店'}];
 import CusButton from './Button';
 import ImgList from './ImgList';
-
+import * as axios from '../util/AxiosUtil';
 class NewOrder extends Component {
 
 	constructor(props){
@@ -59,7 +59,6 @@ class NewOrder extends Component {
 
 	onStoreChange(event){
 
-		console.log(event);
 		this.setState({
 			storeId : event.id,
 			storeName : event.menuName
@@ -79,6 +78,18 @@ class NewOrder extends Component {
 			this.state.imgList.push({imgIds : null});
 			this.setState({
 				imgList : this.state.imgList
+			})
+			WXUtil.getImgData(imgIds[0], imgData =>{
+				// alert(imgData)
+				alert(Constant.token)
+				axios.post(Constant.uploadImage,
+				{
+					img : imgData
+				}, res => {
+					alert(res)
+				}, error => {
+
+				})
 			})
 		})
 	}

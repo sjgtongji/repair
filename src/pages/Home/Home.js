@@ -10,7 +10,6 @@ import * as Constant from '../../util/Constant';
 const sendExp = '发送验证码';
 const sendInterval = 60;
 import { withStyles } from '@material-ui/core/styles';
-import * as WXUtil from '../../util/WXUtil';
 import {login} from 'actions/user';
 import {connect} from 'react-redux';
 class Home extends Component {
@@ -28,18 +27,18 @@ class Home extends Component {
 				this.countDown.bind(this)
 		}
 		componentDidMount(){
-			this.setState({
-				showProgress : true
-			})
-			axios.post(Constant.openIdLogin , {
-				openId : '111111'
-			},res => {
-				this.onLoginSuccess(res);
-			},error => {
-				this.setState({
-					showProgress : false
-				})
-			})
+			// this.setState({
+			// 	showProgress : true
+			// })
+			// axios.post(Constant.openIdLogin , {
+			// 	openId : '111111'
+			// },res => {
+			// 	this.onLoginSuccess(res);
+			// },error => {
+			// 	this.setState({
+			// 		showProgress : false
+			// 	})
+			// })
 		}
 		onLoginSuccess(res){
 			this.setState({
@@ -51,6 +50,13 @@ class Home extends Component {
 			login(res);
 			Constant.token = res.token;
 			this.props.history.push('/orders');
+			// console.log(Constant.window.width, Constant.window.height);
+			// console.log(this.props);
+			// axios.post(Constant.openIdLogin , {
+			// 	openId : '123456'
+			// },res => {
+			// 	this.props.history.push('/orders');
+			// })
 		}
 		isPhoneAvailable(phone) {
 			var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
@@ -63,11 +69,11 @@ class Home extends Component {
 
 
 		checkPhonenum(){
-			if(!this.state.phonenum){
+			if(this.state.phonenum == ''){
 				alert('手机号不能为空')
 				return false;
 			}
-
+			console.log('phonenum is not null');
 			if(!this.isPhoneAvailable){
 				alert('手机号格式不正确')
 				return false;
@@ -76,22 +82,38 @@ class Home extends Component {
 		}
 
 		checkCode(){
-			if(!this.state.code){
+			if(this.state.code == ''){
 				alert('手机号不能为空')
 				return false
 			}
+			console.log('code is not null');
 			var reg = /[0-9]{4}/;
 			if(!reg.test(this.state.code)){
 				alert('验证码为4位数字')
 				return false
 			}
+
 			return true;
 		}
+
+		uuid() {
+			var s = [];
+			var hexDigits = "0123456789abcdef";
+			for (var i = 0; i < 36; i++) {
+				s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+			}
+			s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
+			s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+			s[8] = s[13] = s[18] = s[23] = "-";
+
+			var uuid = s.join("");
+			return uuid;
+		}
 		onLogin(){
-			if(!this.checkPhonenum){
+			if(!this.checkPhonenum()){
 				return;
 			}
-			if(!this.checkCode){
+			if(!this.checkCode()){
 				return;
 			}
 			const {login} = this.props;
@@ -102,13 +124,13 @@ class Home extends Component {
 				axios.post(Constant.phoneLogin , {
 					phoneNum : this.state.phonenum,
 					pwd : this.state.code,
-					openId : '111111'
+					openId : this.uuid()
 				},res => {
 					this.onLoginSuccess(res);
 				},error => {
 					this.setState({
 						showProgress : false
-					})
+					});
 				})
 
 			}else{
@@ -119,12 +141,10 @@ class Home extends Component {
 				this.props.history.push('/orders');
 			}
 
-
-
 		}
 
 		onSend(){
-			if(!this.checkPhonenum){
+			if(!this.checkPhonenum()){
 				return;
 			}
 			this.countDown(this.state.sendInterval);
@@ -148,7 +168,6 @@ class Home extends Component {
 					clearTimeout(this.timer);
 				}
 			}else{
-				console.log('send success');
 				this.setState({
 					sendExp: this.composeSendExp(interval),
 					sendInterval: interval,
@@ -181,6 +200,7 @@ class Home extends Component {
 						</div>
 				)
 		}
+
 }
 const styles = theme => ({
 	root : {
