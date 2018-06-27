@@ -1,11 +1,11 @@
 import axios from 'axios';
 import * as Constant from './Constant';
 export function get(url, callback, fCallback) {
-	axios.defaults.headers['RestToken'] = Constant.token;
 	axios({
 		method:"GET",
 		headers:{
-			'Content-type':'application/json'
+			'Content-type':'application/json',
+			'RestToken':Constant.token
 		},
 		url:Constant.isProd ? Constant.apiPath + url : Constant.apiPath + url
 	}).then((res) =>{
@@ -19,7 +19,7 @@ export function post(url, data, callback, fCallback) {
 	axios.defaults.headers['RestToken'] = Constant.token;
 	axios({
 		method:"POST",
-		headers:{'Content-type':'application/json'},
+		headers:{'Content-type':'application/json','RestToken':Constant.token},
 		url:Constant.isProd ? Constant.apiPath + url : Constant.apiPath + url,
 		data:data
 	}).then((res) => {

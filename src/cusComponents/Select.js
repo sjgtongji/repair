@@ -51,9 +51,10 @@ class CusSelect extends Component {
 
 	onSelect(event){
 		let id = event.target.value;
+		console.log(id);
 		this.setState({value : id})
 		for(var i = 0 ; i < this.props.data.length ; i++){
-			if(this.props.data[i].id == id){
+			if(this.props.data[i].storeId == id){
 				this.props.onChange(this.props.data[i]);
 			}
 		}
@@ -93,7 +94,7 @@ class CusSelect extends Component {
 					{
 
 						this.props.data.map(item => (
-							<MenuItem key={item.id} value={item.id}>{item.menuName}</MenuItem>
+							<MenuItem key={item.storeId} value={item.storeId}>{item.storeName}</MenuItem>
 						))
 					}
 				</Select>

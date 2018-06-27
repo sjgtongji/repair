@@ -57,11 +57,14 @@ class NewOrder extends Component {
 		}
 	}
 
+	componentDidMount(){
+		console.log(this.props);
+	}
 	onStoreChange(event){
 
 		this.setState({
-			storeId : event.id,
-			storeName : event.menuName
+			storeId : event.storeId,
+			storeName : event.storeName
 		})
 	}
 
@@ -107,6 +110,24 @@ class NewOrder extends Component {
 
 	onSubmit(){
 		console.log('onSubmit');
+		let imgIds = [];
+		for(var item in this.state.imgList){
+			if(item.imgId){
+				imgIds.push(item.imgId)
+			}
+		}
+		axios.post(Constant.submitOrder,
+		{
+			managerId: this.props.user.userId,
+			storeId: this.state.storeId,
+			title: this.state.title,
+			desc: this.state.desc,
+			imgs: imgIds
+		}, res => {
+
+		}, error => {
+
+		})
 	}
 
 	onZoom(img){
@@ -149,7 +170,7 @@ class NewOrder extends Component {
 							<FlexInput type='text' label='问题描述' onChange={(event) => this.setState({desc : event.target.value})} multiline rows={6} rowsMax={6}></FlexInput>
 						</div>
 						<div className={classes.item}>
-							<Select data={storeList} label='选择店铺' onChange={(event) => this.onStoreChange(event)} classes={{root : css.select}}></Select>
+							<Select data={this.props.user.storeList} label='选择店铺' onChange={(event) => this.onStoreChange(event)} classes={{root : css.select}}></Select>
 						</div>
 
 						<div className={classNames(classes.item , classes.itemSmall)}>
@@ -181,8 +202,6 @@ const styles = theme => ({
     justifyContent: 'flex-start',
 		alignItems:'stretch',
 		paddingTop : 10,
-		paddingLeft : 10,
-		paddingRight : 10
   },
 
   title: {
@@ -260,4 +279,21 @@ const styles = theme => ({
 		flexDirection : 'column'
 	}
 });
-export default withStyles(styles)(NewOrder);
+const mapStateToProps = (state) => {
+		return {
+			user : {
+				roleCode: state.user.roleCode,
+				userId: state.user.userId,
+				storeList : state.user.storeList
+			}
+		}
+};
+
+const mapDispatchToProps = (dispatch) => {
+		return {
+				getStoreList : (storeList) => {
+					dispatch(getStoreList(storeList))
+				}
+		}
+};
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(NewOrder));

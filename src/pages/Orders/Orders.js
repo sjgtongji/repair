@@ -32,10 +32,12 @@ class Orders extends Component {
 		};
 
 		componentDidMount(){
-			this.wxSign();
+			// this.wxSign();
+			console.log(this.props);
 			const {user , getStoreList} = this.props;
 			axios.get(Constant.getStoreList +'?userId=' + user.userId , (res) => {
-				getStoreList(res.storeList)
+				console.log(res);
+				this.props.getStoreList(res.storeList)
 			},error => {
 
 			});
@@ -134,17 +136,17 @@ const styles = theme => ({
 	}
 });
 const mapStateToProps = (state) => {
-		console.log(state);
 		return {
-			user : state.user
+			user : {
+				roleCode: state.user.roleCode,
+				userId: state.user.userId,
+				storeList : state.user.storeList
+			}
 		}
 };
 
 const mapDispatchToProps = (dispatch) => {
 		return {
-				login: (user) => {
-						dispatch(login(user))
-				},
 				getStoreList : (storeList) => {
 					dispatch(getStoreList(storeList))
 				}

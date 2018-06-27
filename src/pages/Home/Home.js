@@ -47,7 +47,7 @@ class Home extends Component {
 			if(this.timer){
 				clearTimeout(this.timer);
 			};
-			login(res);
+			this.props.login(res);
 			Constant.token = res.token;
 			this.props.history.push('/orders');
 			// console.log(Constant.window.width, Constant.window.height);
@@ -124,7 +124,7 @@ class Home extends Component {
 				axios.post(Constant.phoneLogin , {
 					phoneNum : this.state.phonenum,
 					pwd : this.state.code,
-					openId : this.uuid()
+					openId : this.uuid().replace(new RegExp("-","gm"),"")
 				},res => {
 					this.onLoginSuccess(res);
 				},error => {
