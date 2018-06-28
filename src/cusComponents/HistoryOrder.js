@@ -104,6 +104,10 @@ class HistoryOrder extends Component {
 			showProgress : false,
 			step : 0
 		}
+		this.getScrollTop = this.getScrollTop.bind(this)
+		this.getClientHeight = this.getClientHeight.bind(this)
+		this.getScrollHeight = this.getScrollHeight.bind(this)
+		this.onScroll = this.onScroll.bind(this)
 	}
 
 	componentDidMount(){
@@ -121,6 +125,39 @@ class HistoryOrder extends Component {
 
 			})
 		}
+		document.addEventListener('scroll', this.onScroll, false);
+	}
+
+	onScroll(){
+		console.log('onscroll');
+		if(this.getScrollTop() + this.getClientHeight() == this.getScrollHeight()) {
+			console.log('scorll to bottom');
+		}
+	}
+	getScrollTop() {
+		var scrollTop = 0;
+		if(document.documentElement && document.documentElement.scrollTop) {
+			scrollTop = document.documentElement.scrollTop;
+		} else if(document.body) {
+			scrollTop = document.body.scrollTop;
+		}
+
+		return scrollTop;
+	}
+
+	getClientHeight() {
+		var clientHeight = 0;
+		if(document.body.clientHeight && document.documentElement.clientHeight) {
+			clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+		} else {
+			clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+		}
+		return clientHeight;
+	}
+
+	//获取文档完整的高度
+	getScrollHeight() {
+		return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
 	}
 
 	onDetail(order){
