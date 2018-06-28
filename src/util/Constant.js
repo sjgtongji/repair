@@ -1,4 +1,4 @@
-export const isProd = true;
+export const isProd = false;
 export const apiPathDev = 'http://192.168.3.105:8080/';
 export const apiPath = 'http://47.101.39.28:8080/';
 export const phoneLogin = 'rest/loginByPhoneNum';

@@ -110,15 +110,17 @@ class HistoryOrder extends Component {
 		this.setState({
 			showProgress : true
 		})
-		axios.get(Constant.getOrderList + '?userId=' + this.props.user.userId + '&step=' + this.state.step, res => {
-			this.setState({
-				list : res.orderList,
-				showProgress : false,
-				step : this.step + 1
-			})
-		}, error => {
+		if(Constant.isProd){
+			axios.get(Constant.getOrderList + '?userId=' + this.props.user.userId + '&step=' + this.state.step, res => {
+				this.setState({
+					list : res.orderList,
+					showProgress : false,
+					step : this.step + 1
+				})
+			}, error => {
 
-		})
+			})
+		}
 	}
 
 	onDetail(order){

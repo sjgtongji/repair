@@ -26,6 +26,18 @@ import {
 	Typography,
 	CardActions
 }from '@material-ui/core';
+let order = 	{
+		orderId:2,
+		storeId:1,
+		storeName:'吴江路店',
+		storeAddr:'吴江路店189号',
+		managerId:1,
+		repairmanId:2,
+		title:'咖啡机维修',
+		orderState: '01',
+		createTime: 0,
+		desc:'咖啡机维修'
+	};
 class OrderDetail extends Component {
 		constructor(props) {
 			super(props);
@@ -40,17 +52,24 @@ class OrderDetail extends Component {
 			this.setState({
 				showProgress : true
 			})
-			axios.get(Constant.getDetailOrder + '?userId=' + this.props.user.userId + '&orderId=' + this.props.user.orderId,
-			res => {
-				this.setState({
-					order : res,
-					showProgress : false
+			if(Constant.isProd){
+				axios.get(Constant.getDetailOrder + '?userId=' + this.props.user.userId + '&orderId=' + this.props.user.orderId,
+				res => {
+					this.setState({
+						order : res,
+						showProgress : false
+					})
+				},error => {
+					this.setState({
+						showProgress : false
+					})
 				})
-			},error => {
+			}else{
 				this.setState({
-					showProgress : false
+					order : order
 				})
-			})
+			}
+
     }
 		mapOrderState(orderState){
 			if(orderState == '00'){

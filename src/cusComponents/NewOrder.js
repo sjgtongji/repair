@@ -247,6 +247,8 @@ const styles = theme => ({
 		flexDirection : 'column',
     justifyContent: 'flex-start',
 		alignItems:'stretch',
+		paddingLeft: Constant.window.width * 0.05,
+		paddingRight: Constant.window.width * 0.05,
 	},
   title: {
     color: 'white',

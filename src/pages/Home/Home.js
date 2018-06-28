@@ -149,10 +149,20 @@ class Home extends Component {
 			}
 			this.countDown(this.state.sendInterval);
 			if(Constant.isProd){
+				this.setState({
+					showProgress : true
+				})
 				axios.post(Constant.validateCode , {
 					phoneNum : this.state.phonenum
 				},res => {
 					console.log(res);
+					this.setState({
+						showProgress : false
+					})
+				},error => {
+					this.setState({
+						showProgress : false
+					})
 				})
 			}
 		}
