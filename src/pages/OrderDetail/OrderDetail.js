@@ -4,12 +4,14 @@ import {Link} from 'react-router-dom';
 import FlexInput from 'cusComponents/FlexInput';
 import Button from 'cusComponents/Button';
 import Progress from 'cusComponents/Dialog';
+import ImgList from 'cusComponents/ImgList';
 var classNames = require('classnames');
 import * as axios from '../../util/AxiosUtil';
 import * as Constant from '../../util/Constant';
 import { withStyles } from '@material-ui/core/styles';
 import {login} from 'actions/user';
 import {connect} from 'react-redux';
+import CrossIcon from '@material-ui/icons/Close';
 import {
 	IconButton,
 	Input,
@@ -43,7 +45,9 @@ class OrderDetail extends Component {
 			super(props);
       this.state = {
         order : null,
-				showProgress : false
+				showProgress : false,
+				zoomed : false,
+				zoomUrl : ''
       }
 		}
 
@@ -69,7 +73,6 @@ class OrderDetail extends Component {
 					order : order
 				})
 			}
-
     }
 		mapOrderState(orderState){
 			if(orderState == '00'){
@@ -81,7 +84,18 @@ class OrderDetail extends Component {
 			return '维修中';
 		}
 
+		onAdd(item){
+		}
 
+		onDelete(img){
+		}
+
+		onZoom(img){
+			this.setState({
+				zoomed : true,
+				zoomUrl : img.imgUrl
+			})
+		}
 		render() {
 			const {classes} = this.props;
 			if(!this.state.order){
@@ -94,101 +108,121 @@ class OrderDetail extends Component {
 			let order = this.state.order;
 
 				return (
-					<div className={classes.root}>
-						<Card className={classes.card}>
-							<CardContent>
-								<div className={classes.row}>
-									<Typography variant="title">
-										订单信息
-									</Typography>
+					<div className={classes.container}>
+						{
+							this.state.zoomed ?
+							<div>
+								<img src={this.state.zoomUrl} width={Constant.window.width} height={Constant.window.height} alt=""></img>
+								<div className={classes.crossDiv}>
+									<IconButton>
+										<CrossIcon className={classes.cross} onClick={(event) => this.onZoomEnd()}/>
+									</IconButton>
 								</div>
-								<div className={classes.row}>
-									<Typography variant="subheading">
-										标题:
-									</Typography>
-									<Typography variant="subheading">
-										{order.title}
-									</Typography>
-								</div>
-								<div className={classes.row}>
-									<Typography variant="subheading">
-										问题描述:
-									</Typography>
-									<Typography variant="subheading">
-										{order.desc}
-									</Typography>
-								</div>
-								<div className={classes.row}>
-									<Typography variant="subheading">
-										门店地址:
-									</Typography>
-									<Typography variant="subheading">
-										{order.storeAddr}
-									</Typography>
-								</div>
-								<div className={classes.lastRow}>
-									<div className={classes.row}>
-										<Typography variant="body1">
-											订单状态:
-										</Typography>
-										<Typography variant="body1" color="error">
-											{this.mapOrderState(order.orderState)}
-										</Typography>
-									</div>
-									<div className={classes.row}>
-										<Typography variant="body1">
-											提交时间:
-										</Typography>
-										<Typography variant="body1">
-											{new Date(order.createTime * 1).format("yyyy-MM-dd hh:mm:ss")}
-										</Typography>
-									</div>
-								</div>
-							</CardContent>
-						</Card>
-						<Card className={classes.card}>
-							<CardContent>
-								<div className={classes.row}>
-									<Typography variant="title">
-										维修师傅信息
-									</Typography>
-								</div>
-								<div className={classes.row}>
-									<Typography variant="body1">
-										师傅姓名:
-									</Typography>
-									<Typography variant="body1">
-										{order.repairmanName}
-									</Typography>
-								</div>
-								<div className={classes.row}>
-									<Typography variant="body1">
-										师傅电话:
-									</Typography>
-									<Typography variant="body1">
-										{order.repairmanPhoneNum}
-									</Typography>
-								</div>
-							</CardContent>
-						</Card>
-						<Card className={classes.card}>
-							<CardContent>
-								<div className={classes.row}>
-									<Typography variant="title">
-										图片信息
-									</Typography>
-								</div>
-								<div className={classes.imgListRoot}>
-								</div>
-							</CardContent>
-						</Card>
-						<Progress open={this.state.showProgress}></Progress>
+							</div>:
+							<div className={classes.root}>
+								<Card className={classes.card}>
+									<CardContent>
+										<div className={classes.row}>
+											<Typography variant="title">
+												订单信息
+											</Typography>
+										</div>
+										<div className={classes.row}>
+											<Typography variant="subheading">
+												标题:
+											</Typography>
+											<Typography variant="subheading">
+												{order.title}
+											</Typography>
+										</div>
+										<div className={classes.row}>
+											<Typography variant="subheading">
+												问题描述:
+											</Typography>
+											<Typography variant="subheading">
+												{order.desc}
+											</Typography>
+										</div>
+										<div className={classes.row}>
+											<Typography variant="subheading">
+												门店地址:
+											</Typography>
+											<Typography variant="subheading">
+												{order.storeAddr}
+											</Typography>
+										</div>
+										<div className={classes.lastRow}>
+											<div className={classes.row}>
+												<Typography variant="body1">
+													订单状态:
+												</Typography>
+												<Typography variant="body1" color="error">
+													{this.mapOrderState(order.orderState)}
+												</Typography>
+											</div>
+											<div className={classes.row}>
+												<Typography variant="body1">
+													提交时间:
+												</Typography>
+												<Typography variant="body1">
+													{new Date(order.createTime * 1).format("yyyy-MM-dd hh:mm:ss")}
+												</Typography>
+											</div>
+										</div>
+									</CardContent>
+								</Card>
+								<Card className={classes.card}>
+									<CardContent>
+										<div className={classes.row}>
+											<Typography variant="title">
+												维修师傅信息
+											</Typography>
+										</div>
+										<div className={classes.row}>
+											<Typography variant="subheading">
+												师傅姓名:
+											</Typography>
+											<Typography variant="subheading">
+												{order.repairmanName}
+											</Typography>
+										</div>
+										<div className={classes.row}>
+											<Typography variant="subheading">
+												师傅电话:
+											</Typography>
+											<Typography variant="subheading">
+												{order.repairmanPhoneNum}
+											</Typography>
+										</div>
+									</CardContent>
+								</Card>
+								<Card className={classes.card}>
+									<CardContent>
+										<div className={classes.row}>
+											<Typography variant="title">
+												图片信息
+											</Typography>
+										</div>
+										<div className={classes.imgListRoot}>
+											<ImgList data={order.imgs} onDelete={this.onDelete.bind(this)} onAdd={this.onAdd.bind(this)} onZoom={this.onZoom.bind(this)} isDetail={true}></ImgList>
+										</div>
+									</CardContent>
+								</Card>
+								<Progress open={this.state.showProgress}></Progress>
+							</div>
+						}
 					</div>
+
 				)
 		}
 
 }
 const styles = theme => ({
+	container : {
+		display : 'flex',
+		flexDirection : 'column',
+		alignItems : 'stretch',
+	},
 	root : {
 		display : 'flex',
 		flexDirection : 'column',
@@ -248,6 +282,22 @@ const styles = theme => ({
 		backgroundColor: '#eeeeee',
 		paddingTop : 10,
 		paddingBottom : 10
+	},
+	crossDiv : {
+		position : 'absolute',
+		height : Constant.window.height * 0.1,
+		width : Constant.window.width,
+		background: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, ' +
+			'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+		left : 0,
+		right : 0,
+		top : 0,
+		display : 'flex',
+		alignItems : 'center',
+	},
+	cross : {
+		color : 'white',
+		width : 100
 	},
 });
 const mapStateToProps = (state) => {

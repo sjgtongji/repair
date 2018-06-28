@@ -49,7 +49,12 @@ class Home extends Component {
 			};
 			this.props.login(res);
 			Constant.token = res.token;
-			this.props.history.push('/orders');
+			if(res.roleCode == '00'){
+				this.props.history.push('/orders');
+			}else if(res.roleCode == '01'){
+				this.props.history.push('/repairorders');
+			}
+
 			// console.log(Constant.window.width, Constant.window.height);
 			// console.log(this.props);
 			// axios.post(Constant.openIdLogin , {

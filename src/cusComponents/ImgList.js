@@ -39,11 +39,13 @@ class ImgList extends Component {
     data : PropTypes.array.isRequired,
     onDelete : PropTypes.func.isRequired,
     onZoom : PropTypes.func.isRequired,
-    onAdd : PropTypes.func.isRequired
+    onAdd : PropTypes.func.isRequired,
+		isDetail : PropTypes.bool.siRequired,
 	}
 
 	static defaulPropTypes = {
-		...GridList.defaulPropTypes
+		...GridList.defaulPropTypes,
+		isDetail : false
 	}
 
 	render() {
@@ -54,14 +56,18 @@ class ImgList extends Component {
           this.state.data.map((item,i) => (
 
 
-                item.imgId?
+                item.imgId || item.imageId?
                   <GridListTile key={i} className={classes.root}>
                     <div className={classes.root}>
-                      <img src={item.imgId} width={Constant.window.width * 0.25} height={Constant.window.height * 0.25} alt=""></img>
+                      <img src={this.props.isDetail? Constant.apiPath + item.imgUrl :item.imgId} width={Constant.window.width * 0.25} height={Constant.window.height * 0.25} alt=""></img>
                       <div className={classes.listheader}>
-                        <IconButton>
-                          <DeleteIcon className={classes.icon} onClick={(event) => this.props.onDelete(item)}/>
-                        </IconButton>
+												{
+													this.props.isDetail?
+													null:
+													<IconButton>
+														<DeleteIcon className={classes.icon} onClick={(event) => this.props.onDelete(item)}/>
+													</IconButton>
+												}
                         <IconButton>
                           <SeeIcon className={classes.icon} onClick={(event) => this.props.onZoom(item)}/>
                         </IconButton>

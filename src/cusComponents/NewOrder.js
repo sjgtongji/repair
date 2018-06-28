@@ -211,7 +211,7 @@ class NewOrder extends Component {
 						</div>
 
 						<div className={classNames(classes.item , classes.itemSmall)}>
-							<Typography color="textSecondary">
+							<Typography color="textSecondary" variant="subheading">
 								问题图片
 							</Typography>
 						</div>
@@ -239,8 +239,7 @@ const styles = theme => ({
 		flexDirection : 'column',
     justifyContent: 'flex-start',
 		alignItems:'stretch',
-		paddingTop : 10,
-		width: Constant.window.width * 0.9
+		paddingTop : 10
   },
 	rootInner : {
 		display: 'flex',

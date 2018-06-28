@@ -18,7 +18,6 @@ import HistoryOrder from 'cusComponents/HistoryOrder';
 import { withStyles } from '@material-ui/core/styles';
 import {login,getStoreList} from 'actions/user';
 import {connect} from 'react-redux';
-import Progress from 'cusComponents/Dialog';
 class Orders extends Component {
 		constructor(props) {
 				super(props);
