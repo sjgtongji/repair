@@ -18,11 +18,13 @@ import HistoryOrder from 'cusComponents/HistoryOrder';
 import { withStyles } from '@material-ui/core/styles';
 import {login,getStoreList} from 'actions/user';
 import {connect} from 'react-redux';
+import Progress from 'cusComponents/Dialog';
 class Orders extends Component {
 		constructor(props) {
 				super(props);
 				this.state = {
 					value: 0,
+					showProgress : false
 				}
 		}
 
@@ -35,12 +37,20 @@ class Orders extends Component {
 			if(Constant.isProd){
 				this.wxSign();
 				// console.log(this.props);
+				this.setState({
+					showProgress : true
+				})
 				const {user , getStoreList} = this.props;
 				axios.get(Constant.getStoreList +'?userId=' + user.userId , (res) => {
 					// console.log(res);
 					this.props.getStoreList(res.storeList)
+					this.setState({
+						showProgress : false
+					})
 				},error => {
-
+					this.setState({
+						showProgress : false
+					})
 				});
 			}
 
@@ -86,6 +96,7 @@ class Orders extends Component {
 									<HistoryOrder {...this.props}></HistoryOrder>
 								}
 							</div>
+							<Progress open={this.state.showProgress}></Progress>
 						</div>
 				)
 		}

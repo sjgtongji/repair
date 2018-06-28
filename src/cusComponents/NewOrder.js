@@ -36,8 +36,6 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { withStyles } from '@material-ui/core/styles';
 import * as Constant from '../util/Constant';
 import * as WXUtil from '../util/WXUtil';
-const url = 'http://b.hiphotos.baidu.com/image/w%3D310/sign=a439f5b24510b912bfc1f0fff3fdfcb5/83025aafa40f4bfb92c52c5d014f78f0f73618a5.jpg';
-const storeList = [{id:1 ,menuName : '南京西路店'},{id:2 ,menuName : '吴江路店'},{id:3,menuName : '茂名北路店'}];
 import CusButton from './Button';
 import ImgList from './ImgList';
 import * as axios from '../util/AxiosUtil';
@@ -79,7 +77,8 @@ class NewOrder extends Component {
 				item.imgId = imgIds[0];
 				this.state.imgList.push({imgIds : null});
 				this.setState({
-					imgList : this.state.imgList
+					imgList : this.state.imgList,
+					showProgress : true
 				})
 				WXUtil.getImgData(imgIds[0], imgData =>{
 					// alert(imgData)
@@ -88,8 +87,13 @@ class NewOrder extends Component {
 						img : imgData
 					}, res => {
 						this.state.imgIds.push(res.imgId);
+						this.setState({
+							showProgress : false
+						})
 					}, error => {
-
+						this.setState({
+							showProgress : false
+						})
 					})
 				})
 			})
@@ -111,7 +115,25 @@ class NewOrder extends Component {
 		}
 	}
 
+	validateSubmit(){
+		if(!this.state.title){
+			alert('请输入标题');
+			return false;
+		}
+		if(!this.state.desc){
+			alert('请输入问题描述');
+			return false;
+		}
+		if(!this.state.storeId){
+			alert('请选择需要维修的店铺');
+			return false;
+		}
+		return true;
+	}
 	onSubmit(){
+		if(!this.validateSubmit()){
+			return;
+		}
 		if(Constant.isProd){
 			this.setState({
 				showProgress : true
@@ -177,7 +199,7 @@ class NewOrder extends Component {
 						</div>
 					</div>:
 
-					<div className={classes.root}>
+					<div className={classes.rootInner}>
 						<div className={classes.item}>
 							<FlexInput type='text' label='标题' onChange={(event) => this.setState({title : event.target.value})}></FlexInput>
 						</div>
@@ -220,6 +242,12 @@ const styles = theme => ({
 		paddingTop : 10,
 		width: Constant.window.width * 0.9
   },
+	rootInner : {
+		display: 'flex',
+		flexDirection : 'column',
+    justifyContent: 'flex-start',
+		alignItems:'stretch',
+	},
   title: {
     color: 'white',
   },
