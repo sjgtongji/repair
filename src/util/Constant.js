@@ -1,4 +1,4 @@
-export const isProd = true;
+export const isProd = false;
 export const apiPathDev = 'http://192.168.3.105:8080';
 export const apiPath = 'http://47.101.39.28:8080';
 export const phoneLogin = '/rest/loginByPhoneNum';
@@ -18,3 +18,4 @@ export var window = {
 	width : 0,
 	height : 0
 }
+export const titles = ['咖啡机跳闸','组头漏水','蒸汽棒滴水漏水','屏显故障','其他'];

@@ -34,7 +34,8 @@ var classNames = require('classnames');
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import AccountCircle from '@material-ui/icons/Search';
 const ITEM_HEIGHT = 48;
-class CusSelect extends Component {
+
+class TitleSelect extends Component {
 
 	constructor(props){
 		super(props)
@@ -50,22 +51,11 @@ class CusSelect extends Component {
 
 	static propTypes = {
 		...Select.propTypes,
-		label: PropTypes.string.isRequired,
-		data : PropTypes.array.isRequired,
+		label: PropTypes.string.isRequired
 	}
 
 	static defaulPropTypes = {
 		...Select.defaulPropTypes,
-	}
-
-	onSelect(event){
-		let id = event.target.value;
-		this.setState({value : id})
-		for(var i = 0 ; i < this.props.data.length ; i++){
-			if(this.props.data[i].storeId == id){
-				this.props.onChange(this.props.data[i]);
-			}
-		}
 	}
 
 	onOpen(event){
@@ -80,7 +70,7 @@ class CusSelect extends Component {
 		console.log(item);
 		this.setState({
 			anchorEl : null,
-			value: item.storeName
+			value: item
 		},() => {
 			this.setState({
 				disabled : false
@@ -128,7 +118,6 @@ class CusSelect extends Component {
 			<FormControl fullWidth={true}>
 				<InputLabel>{this.props.label}</InputLabel>
 				<Input {...this.props}
-					id='value'
 					className={classNames(className, classes.root)} onFocus={(event) => this.onOpen(event)}
 					autoFocus={false}
 					value={this.state.value}
@@ -149,20 +138,9 @@ class CusSelect extends Component {
 									width: this.state.anchorEl? this.state.anchorEl.getBoundingClientRect().right - this.state.anchorEl.getBoundingClientRect().left : 0
 								}
 							}}>
-							<MenuItem className={classes.search}>
-								<Input
-									className={classes.input}
-									startAdornment={
-										<InputAdornment position="start">
-											<AccountCircle />
-										</InputAdornment>
-									}
-									fullWidth
-								/>
-							</MenuItem>
-							{this.state.data.map(item => (
-								<MenuItem key={item.storeId} onClick={(event) => this.handleClose(item)}>
-									{item.storeName}
+							{Constant.titles.map(item => (
+								<MenuItem key={item} onClick={(event) => this.handleClose(item)}>
+									{item}
 								</MenuItem>
 							))}
 						</Menu>
@@ -186,4 +164,4 @@ const styles = theme => ({
 		height : Constant.window.height * 0.06,
 	}
 });
-export default withStyles(styles)(CusSelect);
+export default withStyles(styles)(TitleSelect);

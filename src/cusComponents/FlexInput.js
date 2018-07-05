@@ -38,13 +38,13 @@ class FlexInput extends Component {
 	render() {
 		const {classes,className} = this.props;
 		return (
-			<FormControl fullWidth={true}>
-				<InputLabel htmlFor="adornment-password">{this.props.label}</InputLabel>
+			<FormControl fullWidth={true} margin='normal'>
+				<InputLabel>{this.props.label}</InputLabel>
 				{
 					this.props.multiline?
-					<Input {...this.props} className={classNames(className,classes.inputMultiline)} classes={{input : classes.inputMultiline}}/>:
+					<Input {...this.props} className={classNames(className,classes.inputMultiline)} margin="dense" classes={{input : classes.inputMultiline}}/>:
 					<Input
-						 {...this.props} className={classNames(className, classes.root)} />
+						 {...this.props}  margin="dense" className={classNames(className, classes.root)} />
 				}
 			</FormControl>
 		);
@@ -56,7 +56,11 @@ const styles = theme => ({
 	},
 	inputMultiline : {
 		height : Constant.window.height * 0.20,
-		fontSize : 36
+		fontSize : 36,
+		paddingTop : 10
+	},
+	label : {
+		marginBottom : 100
 	}
 });
 export default withStyles(styles)(FlexInput);

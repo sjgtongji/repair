@@ -20,7 +20,9 @@ import {
 	Button,
 	GridList,
 	GridListTile,
-	GridListTileBar
+	GridListTileBar,
+	Card,
+	CardContent,
 }from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
@@ -32,6 +34,7 @@ var common = require('../css/common.css');
 var css = require('../css/NewOrder.css')
 import FlexInput from './FlexInput';
 import Select from './Select';
+import TitleSelect from './TitleSelect';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { withStyles } from '@material-ui/core/styles';
 import * as Constant from '../util/Constant';
@@ -41,6 +44,32 @@ import ImgList from './ImgList';
 import * as axios from '../util/AxiosUtil';
 import {login,getStoreList,viewOrderDetail} from 'actions/user';
 import Progress from 'cusComponents/Dialog';
+let storeList = [
+	{
+		storeId : 1,
+		storeName : '南京西路'
+	},
+	{
+		storeId : 2,
+		storeName : '吴江路'
+	},
+	{
+		storeId : 3,
+		storeName : '南京东路'
+	},
+	{
+		storeId : 4,
+		storeName : '南京西路'
+	},
+	{
+		storeId : 5,
+		storeName : '吴江路'
+	},
+	{
+		storeId : 6,
+		storeName : '南京东路'
+	}
+];
 class NewOrder extends Component {
 
 	constructor(props){
@@ -63,7 +92,8 @@ class NewOrder extends Component {
 		// console.log(this.props);
 	}
 	onStoreChange(event){
-
+		console.log('onStoreChange');
+		console.log(event);
 		this.setState({
 			storeId : event.storeId,
 			storeName : event.storeName
@@ -180,6 +210,13 @@ class NewOrder extends Component {
 			zoomUrl : ''
 		})
 	}
+	onTitleChanged(title){
+		console.log(title);
+		this.setState({
+			title : title,
+			showOther : title == '其他'
+		})
+	}
 	render() {
 		let imgs = this.state.imgList;
 		const {classes} = this.props;
@@ -199,18 +236,29 @@ class NewOrder extends Component {
 						</div>
 					</div>:
 
-					<div className={classes.rootInner}>
+					<Card className={classes.rootInner}>
+						<CardContent>
 						<div className={classes.item}>
-							<FlexInput type='text' label='标题' onChange={(event) => this.setState({title : event.target.value})}></FlexInput>
+							<Select data={this.props.user.storeList} label='选择店铺' onChange={(event) => this.onStoreChange(event)}></Select>
+						</div>
+						<div className={classes.item}>
+							<TitleSelect type='text' label='选择问题' onChange={(event) => this.onTitleChanged(event)}></TitleSelect>
+							{/* {
+								this.state.showOther?
+								<Input
+					        placeholder="填写其他原因"
+					        fullWidth
+									onChange={(event) => {console.log( event.target.value); this.setState(title :  event.target.value)}}
+					      />:
+								null
+							} */}
 						</div>
 						<div className={classNames(classes.item , classes.itemLarge)}>
-							<FlexInput type='text' label='问题描述' onChange={(event) => this.setState({desc : event.target.value})} multiline rows={6} rowsMax={6}></FlexInput>
-						</div>
-						<div className={classes.item}>
-							<Select data={this.props.user.storeList} label='选择店铺' onChange={(event) => this.onStoreChange(event)} classes={{root : css.select}}></Select>
+							<FlexInput type='text' label='问题描述' onChange={(event) => this.setState({desc : event.target.value})} multiline rows={6}></FlexInput>
 						</div>
 
-						<div className={classNames(classes.item , classes.itemSmall)}>
+
+						<div className={classNames(classes.item , classes.itemSmall, classes.marginTop)}>
 							<Typography color="textSecondary" variant="subheading">
 								问题图片
 							</Typography>
@@ -224,8 +272,8 @@ class NewOrder extends Component {
 								提交
 							</CusButton>
 						</div>
-
-					</div>
+						</CardContent>
+					</Card>
 				}
 				<Progress open={this.state.showProgress}></Progress>
 			</div>
@@ -246,8 +294,9 @@ const styles = theme => ({
 		flexDirection : 'column',
     justifyContent: 'flex-start',
 		alignItems:'stretch',
-		paddingLeft: Constant.window.width * 0.05,
-		paddingRight: Constant.window.width * 0.05,
+		marginLeft: Constant.window.width * 0.05,
+		marginRight: Constant.window.width * 0.05,
+		marginTop: Constant.window.width * 0.05
 	},
   title: {
     color: 'white',
@@ -322,6 +371,15 @@ const styles = theme => ({
 		alignItems : 'center',
 		backgroundColor : 'white',
 		flexDirection : 'column'
+	},
+	marginTop : {
+		marginTop : 10
+	},
+	itemcolumn : {
+		height : Constant.window.height * 0.15,
+		display : 'flex',
+		alignItems : 'center',
+		flexDirection : 'column',
 	}
 });
 const mapStateToProps = (state) => {

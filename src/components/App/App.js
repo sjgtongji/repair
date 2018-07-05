@@ -4,7 +4,7 @@ import Nav from 'components/Nav/Nav';
 import {MuiThemeProvider,createMuiTheme,withTheme} from '@material-ui/core';
 import getRouter from 'router/router';
 import * as Constant from '../../util/Constant';
-import VConsole from 'vconsole/dist/vconsole.min.js' //import vconsole
+// import VConsole from 'vconsole/dist/vconsole.min.js' //import vconsole
 
 var css = require('../../css/common.css');
 const theme = createMuiTheme({
