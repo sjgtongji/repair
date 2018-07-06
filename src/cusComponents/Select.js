@@ -67,7 +67,11 @@ class CusSelect extends Component {
 			}
 		}
 	}
-
+	componentDidMount(){
+		this.setState({
+			data: this.props.data
+		})
+	}
 	onOpen(event){
 		console.log('onOpen');
 		this.setState({
@@ -87,6 +91,25 @@ class CusSelect extends Component {
 			})
 		})
 		this.props.onChange && this.props.onChange(item);
+	}
+	onSearch(event){
+		if(event.target.value == ''){
+			this.setState({
+				data : this.props.data
+			})
+		}else{
+			console.log(event.target.value);
+			let data = [];
+			for(var i = 0 ; i < this.props.data.length ; i++){
+				if(this.props.data[i].storeName.indexOf(event.target.value) > -1){
+					data.push(this.props.data[i]);
+				}
+			}
+			this.setState({
+				data : data
+			})
+		}
+
 	}
 	render() {
 
@@ -128,7 +151,6 @@ class CusSelect extends Component {
 			<FormControl fullWidth={true}>
 				<InputLabel>{this.props.label}</InputLabel>
 				<Input {...this.props}
-					id='value'
 					className={classNames(className, classes.root)} onFocus={(event) => this.onOpen(event)}
 					autoFocus={false}
 					value={this.state.value}
@@ -149,7 +171,7 @@ class CusSelect extends Component {
 									width: this.state.anchorEl? this.state.anchorEl.getBoundingClientRect().right - this.state.anchorEl.getBoundingClientRect().left : 0
 								}
 							}}>
-							<MenuItem className={classes.search}>
+							{/* <MenuItem className={classes.search}>
 								<Input
 									className={classes.input}
 									startAdornment={
@@ -158,9 +180,10 @@ class CusSelect extends Component {
 										</InputAdornment>
 									}
 									fullWidth
+									onChange={(event) => this.onSearch(event)}
 								/>
-							</MenuItem>
-							{this.state.data.map(item => (
+							</MenuItem> */}
+							{this.props.data.map(item => (
 								<MenuItem key={item.storeId} onClick={(event) => this.handleClose(item)}>
 									{item.storeName}
 								</MenuItem>
