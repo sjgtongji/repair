@@ -373,7 +373,7 @@ const styles = theme => ({
 		flexDirection : 'column'
 	},
 	marginTop : {
-		marginTop : 10
+		paddingTop : 20
 	},
 	itemcolumn : {
 		height : Constant.window.height * 0.15,

@@ -72,11 +72,14 @@ class TitleSelect extends Component {
 			anchorEl : null,
 			value: item
 		},() => {
-			this.setState({
-				disabled : false
-			})
+			this.props.onChange && this.props.onChange(item);
+			setTimeout(() => {
+				this.setState({
+					disabled : false
+				})
+			}, 500);
 		})
-		this.props.onChange && this.props.onChange(item);
+
 	}
 	render() {
 

@@ -77,7 +77,8 @@ class CusSelect extends Component {
 		this.setState({
 			open : true,
 			anchorEl : event.target,
-			disabled : true
+			disabled : true,
+			data : this.props.data
 		})
 	}
 	handleClose(item){
@@ -86,11 +87,17 @@ class CusSelect extends Component {
 			anchorEl : null,
 			value: item.storeName
 		},() => {
-			this.setState({
-				disabled : false
-			})
+			this.props.onChange && this.props.onChange(item);
+			setTimeout(() => {
+				this.setState({
+					disabled : false
+				})
+			}, 500);
+			// this.setState({
+			// 	disabled : false
+			// })
 		})
-		this.props.onChange && this.props.onChange(item);
+
 	}
 	onSearch(event){
 		if(event.target.value == ''){
@@ -105,6 +112,7 @@ class CusSelect extends Component {
 					data.push(this.props.data[i]);
 				}
 			}
+			console.log(data);
 			this.setState({
 				data : data
 			})
@@ -171,7 +179,7 @@ class CusSelect extends Component {
 									width: this.state.anchorEl? this.state.anchorEl.getBoundingClientRect().right - this.state.anchorEl.getBoundingClientRect().left : 0
 								}
 							}}>
-							{/* <MenuItem className={classes.search}>
+							<MenuItem className={classes.search}>
 								<Input
 									className={classes.input}
 									startAdornment={
@@ -182,8 +190,8 @@ class CusSelect extends Component {
 									fullWidth
 									onChange={(event) => this.onSearch(event)}
 								/>
-							</MenuItem> */}
-							{this.props.data.map(item => (
+							</MenuItem>
+							{this.state.data.map(item => (
 								<MenuItem key={item.storeId} onClick={(event) => this.handleClose(item)}>
 									{item.storeName}
 								</MenuItem>
