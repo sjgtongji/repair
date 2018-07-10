@@ -116,7 +116,7 @@ class NewOrder extends Component {
 					{
 						img : imgData
 					}, res => {
-						this.state.imgIds.push(res.imgId);
+						this.state.imgIds.push(res.imageId);
 						this.setState({
 							showProgress : false
 						})
@@ -174,13 +174,14 @@ class NewOrder extends Component {
 					imgIds.push(item.imgId)
 				}
 			}
+			console.log(this.state.imgIds);
 			axios.post(Constant.submitOrder,
 			{
 				managerId: this.props.user.userId,
 				storeId: this.state.storeId,
 				title: this.state.title,
 				desc: this.state.desc,
-				imgs: imgIds
+				imgs: this.state.imgIds
 			}, res => {
 				this.setState({
 					showProgress : false

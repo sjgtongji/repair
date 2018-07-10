@@ -40,7 +40,7 @@ class ImgList extends Component {
     onDelete : PropTypes.func.isRequired,
     onZoom : PropTypes.func.isRequired,
     onAdd : PropTypes.func.isRequired,
-		isDetail : PropTypes.bool.siRequired,
+		isDetail : PropTypes.bool.isRequired,
 	}
 
 	static defaulPropTypes = {
@@ -51,14 +51,14 @@ class ImgList extends Component {
 	render() {
 		const {classes , className} = this.props;
 		return (
-      <GridList cols={3.5} spacing={2} cellHeight={Constant.window.height * 0.25} className={classes.gridList}>
+      <GridList cols={3.5} spacing={20} cellHeight={Constant.window.height * 0.25} className={classes.gridList}>
         {
           this.state.data.map((item,i) => (
 
 
                 item.imgId || item.imageId?
                   <GridListTile key={i} className={classes.root}>
-                    <div className={classes.root}>
+                    <div className={classes.div}>
                       <img src={this.props.isDetail? Constant.apiPath + item.imgUrl :item.imgId} width={Constant.window.width * 0.25} height={Constant.window.height * 0.25} alt=""></img>
                       <div className={classes.listheader}>
 												{
@@ -76,7 +76,7 @@ class ImgList extends Component {
 
                   </GridListTile>:
                   <GridListTile key={i} className={classes.root}>
-                    <div className={classes.root}>
+                    <div className={classes.div}>
                       <IconButton>
                         <AddIcon onClick={(event) => this.props.onAdd(item)}/>
                       </IconButton>
@@ -101,7 +101,16 @@ const styles = theme => ({
 		alignItems:'center',
     height : Constant.window.height * 0.25,
     width : Constant.window.width * 0.25,
+		marginLeft : 20
   },
+	div : {
+		display: 'flex',
+		flexDirection : 'column',
+		justifyContent: 'center',
+		alignItems:'center',
+		height : Constant.window.height * 0.25,
+		width : Constant.window.width * 0.25
+	},
   gridList: {
     flexWrap: 'nowrap',
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
