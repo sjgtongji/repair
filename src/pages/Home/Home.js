@@ -27,18 +27,39 @@ class Home extends Component {
 				this.countDown.bind(this)
 		}
 		componentDidMount(){
-			// this.setState({
-			// 	showProgress : true
-			// })
-			// axios.post(Constant.openIdLogin , {
-			// 	openId : '111111'
-			// },res => {
-			// 	this.onLoginSuccess(res);
-			// },error => {
-			// 	this.setState({
-			// 		showProgress : false
-			// 	})
-			// })
+			if(Constant.requestParams.state == 'costa'){
+				if(!Constant.requestParams.hasGetOpenId){
+					let getWxOpenIdUrl = Constant.wxGetOpenId + '?code=' + Constant.requestParams.code;
+					this.setState({
+						showProgress : true
+					})
+
+					axios.get(getWxOpenIdUrl, (resOpenId) => {
+						console.log(resOpenId);
+						Constant.requestParams.openId = resOpenId.openId;
+						Constant.requestParams.hasGetOpenId = true;
+						axios.post(Constant.openIdLogin , {
+							openId : resOpenId.openId
+						},res => {
+							this.onLoginSuccess(res);
+						},error => {
+							this.setState({
+								showProgress : false
+							})
+						},false)
+
+					}, (e) => {
+						this.setState({
+							showProgress : false
+						})
+					})
+				}
+			}else{
+				console.log('platform');
+				this.props.history.push('/platform');
+				return;
+			}
+
 		}
 		onLoginSuccess(res){
 			this.setState({
@@ -79,7 +100,7 @@ class Home extends Component {
 				return false;
 			}
 			console.log('phonenum is not null');
-			if(!this.isPhoneAvailable){
+			if(!this.isPhoneAvailable(this.state.phonenum)){
 				alert('手机号格式不正确')
 				return false;
 			}
@@ -88,10 +109,9 @@ class Home extends Component {
 
 		checkCode(){
 			if(this.state.code == ''){
-				alert('手机号不能为空')
+				alert('验证码不能为空')
 				return false
 			}
-			console.log('code is not null');
 			var reg = /[0-9]{4}/;
 			if(!reg.test(this.state.code)){
 				alert('验证码为4位数字')
@@ -129,7 +149,7 @@ class Home extends Component {
 				axios.post(Constant.phoneLogin , {
 					phoneNum : this.state.phonenum,
 					pwd : this.state.code,
-					openId : this.uuid().replace(new RegExp("-","gm"),"")
+					openId : Constant.requestParams.openId
 				},res => {
 					this.onLoginSuccess(res);
 				},error => {
@@ -210,7 +230,8 @@ class Home extends Component {
 							<Button variant="contained" color="primary" onClick={(event) => this.onLogin()} disabled={this.state.loginDisabled}>
 								登录
 							</Button>
-							<Link to="/userinfo" className={classes.contact}>联系客服</Link>
+							<a href="tel:15221946385" className={classes.contact}>联系客服</a>
+							{/* <Link to="/service" className={classes.contact}>联系客服</Link> */}
 							<Progress open={this.state.showProgress}></Progress>
 						</div>
 				)
@@ -243,6 +264,7 @@ const styles = theme => ({
 		width : Constant.window.width * 0.4
 	},
 	contact : {
+		display : 'none',
 		alignSelf : 'flex-end',
 		marginTop : Constant.window.height * 0.05,
 		fontSize: 32

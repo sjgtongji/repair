@@ -10,10 +10,17 @@ export const submitOrder = '/rest/submitOrder';
 export const uploadImage = '/rest/uploadImage';
 export const getDetailOrder = '/rest/getDetailOrder';
 export const wxSignature = '/wx/getWxSignature';
-export const appId = 'wxa691be29e7554dcc';
-export const appSecret = '19f042bcce790a9fd71e9174651e5a06';
+export const wxGetOpenId = '/wx/getWxOpenId'
+export const appId = 'wx66e00566d5c87bd7';
+export const appSecret = '511f3f055b1b2582560bc89fac16c05f';
 export const wxUrl = 'http://repair.buzztimecoffee.com/';
 export var token = '';
+export var requestParams = {
+	code : '',
+	openId : '',
+	state : '',
+	hasGetOpenId : false
+};
 export var window = {
 	width : 0,
 	height : 0

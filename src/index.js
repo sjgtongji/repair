@@ -5,7 +5,7 @@ import {Provider} from 'react-redux';
 import store from './redux/store';
 import {BrowserRouter as Router} from 'react-router-dom';
 import App from 'components/App/App';
-
+import * as Constant from './util/Constant';
 renderWithHotReload(App);
 
 if (module.hot) {
@@ -16,7 +16,8 @@ if (module.hot) {
 }
 
 function renderWithHotReload(RootElement) {
-		console.log(GetRequest());
+		Constant.requestParams = GetRequest();
+		console.log(Constant.requestParams);
 		ReactDom.render(
 				<AppContainer>
 						<Provider store={store}>
@@ -30,6 +31,7 @@ function renderWithHotReload(RootElement) {
 }
 
 function GetRequest() {
+		console.log(location);
    var url = location.search; //获取url中"?"符后的字串
    var theRequest = new Object();
    if (url.indexOf("?") != -1) {
