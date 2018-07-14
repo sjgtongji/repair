@@ -8,6 +8,28 @@ import VConsole from 'vconsole/dist/vconsole.min.js' //import vconsole
 let vConsole = new VConsole() // 初始化
 
 var css = require('../../css/common.css');
+const costaTheme = createMuiTheme({
+  overrides: {
+    MuiTab: {
+      root: {
+				height : 100,
+				flex : 1,
+				justfyContent : 'center',
+				alignItems : 'center'
+      }
+    },
+		MuiSvgIcon:{
+			root : {
+				width : 50,
+				height : 50
+			}
+		}
+	},
+	palette: {
+    primary: { main: '#97002d' }, // Purple and green play nicely together.
+  }
+});
+
 const theme = createMuiTheme({
   overrides: {
     MuiTab: {
@@ -43,7 +65,7 @@ class App extends Component {
 		render() {
 				return (
 						<div ref={this.saveRef} className={css.screen} >
-							<MuiThemeProvider theme={theme}>
+							<MuiThemeProvider theme={Constant.requestParams.state == 'costa' ? costaTheme : theme}>
 								{getRouter()}
 							</MuiThemeProvider>
 						</div>

@@ -12,6 +12,7 @@ const sendInterval = 60;
 import { withStyles } from '@material-ui/core/styles';
 import {login} from 'actions/user';
 import {connect} from 'react-redux';
+var costa = require('img/costa.jpg');
 class Home extends Component {
 		constructor(props) {
 				super(props);
@@ -52,7 +53,7 @@ class Home extends Component {
 						this.setState({
 							showProgress : false
 						})
-					})
+					},false)
 				}
 			}else{
 				console.log('platform');
@@ -220,6 +221,7 @@ class Home extends Component {
 			const {classes} = this.props;
 				return (
 						<div className={classes.root}>
+							<img src={costa} width={500} height={275} alt="" className={classes.costaLogo}></img>
 							<FlexInput ref = "phonenum" type='text' label='手机号' onChange={(event) => this.setState({phonenum : event.target.value})}></FlexInput>
 							<div className={classes.codeDiv}>
 								<FlexInput ref = "code" label='验证码' type='text' className={classes.code} onChange={(event) => this.setState({code : event.target.value})}></FlexInput>
@@ -268,6 +270,9 @@ const styles = theme => ({
 		alignSelf : 'flex-end',
 		marginTop : Constant.window.height * 0.05,
 		fontSize: 32
+	},
+	costaLogo : {
+		alignSelf : 'center'
 	}
 });
 const mapStateToProps = (state) => {

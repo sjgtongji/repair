@@ -53,7 +53,8 @@ commonConfig = {
             actions: path.join(__dirname, 'src/redux/actions'),
             reducers: path.join(__dirname, 'src/redux/reducers'),
             mock: path.join(__dirname, 'mock'),
-            cusComponents: path.join(__dirname, 'src/cusComponents')
+            cusComponents: path.join(__dirname, 'src/cusComponents'),
+						img: path.join(__dirname, 'src/img'),
         }
     }
 };
