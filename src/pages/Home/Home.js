@@ -72,9 +72,9 @@ class Home extends Component {
 			this.props.login(res);
 			Constant.token = res.token;
 			if(res.roleCode == '00'){
-				this.props.history.push('/orders');
+				this.props.history.replace('/orders');
 			}else if(res.roleCode == '01'){
-				this.props.history.push('/repairorders');
+				this.props.history.replace('/repairorders');
 			}
 
 			// console.log(Constant.window.width, Constant.window.height);

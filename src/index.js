@@ -16,8 +16,15 @@ if (module.hot) {
 }
 
 function renderWithHotReload(RootElement) {
+		let ua = window.navigator.userAgent.toLowerCase();
 		Constant.requestParams = GetRequest();
 		console.log(Constant.requestParams);
+		console.log(ua);
+		if(ua.indexOf('iphone') > -1){
+			Constant.platform.os = 'ios'
+		}else if(ua.indexOf('android') > -1){
+			Constant.platform.os = 'android'
+		};
 		ReactDom.render(
 				<AppContainer>
 						<Provider store={store}>
@@ -31,7 +38,7 @@ function renderWithHotReload(RootElement) {
 }
 
 function GetRequest() {
-		console.log(location);
+	 console.log(location);
    var url = location.search; //获取url中"?"符后的字串
    var theRequest = new Object();
    if (url.indexOf("?") != -1) {

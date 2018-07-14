@@ -11,10 +11,13 @@ export const uploadImage = '/rest/uploadImage';
 export const getDetailOrder = '/rest/getDetailOrder';
 export const wxSignature = '/wx/getWxSignature';
 export const wxGetOpenId = '/wx/getWxOpenId'
-export const appId = 'wx66e00566d5c87bd7';
 export const appSecret = '511f3f055b1b2582560bc89fac16c05f';
+export const appId = 'wx66e00566d5c87bd7';
 export const wxUrl = 'http://repair.buzztimecoffee.com/';
 export var token = '';
+export var platform = {
+	os : ''
+};
 export var requestParams = {
 	code : '',
 	openId : '',

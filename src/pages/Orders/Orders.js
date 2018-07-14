@@ -35,40 +35,42 @@ class Orders extends Component {
 
 		componentDidMount(){
 			if(Constant.isProd){
-				this.wxSign();
-				// console.log(this.props);
+				const {user , getStoreList} = this.props;
 				this.setState({
 					showProgress : true
 				})
-				const {user , getStoreList} = this.props;
-				axios.get(Constant.getStoreList +'?userId=' + user.userId , (res) => {
-					// console.log(res);
-					this.props.getStoreList(res.storeList)
-					this.setState({
-						showProgress : false
-					})
-				},error => {
-					this.setState({
-						showProgress : false
-					})
+				this.wxSign((success) => {
+					axios.get(Constant.getStoreList +'?userId=' + user.userId , (res) => {
+						// console.log(res);
+						this.props.getStoreList(res.storeList)
+						this.setState({
+							showProgress : false
+						})
+					},error => {
+						this.setState({
+							showProgress : false
+						})
+					});
 				});
 			}
 
 		}
 
-		wxSign(){
+		wxSign(callback){
 			let url = '';
-			if(Constant.isProd)
-				url = Constant.wxUrl;
-			else {
+			console.log(this.props.history);
+			if(Constant.platform.os === 'android'){
 				url = location.href.split('#')[0];
+
+			}else if(Constant.platform.os === 'ios'){
+				url = encodeURIComponent(location.href.split('#')[0]);
 			}
-			console.log(url);
 			axios.get(Constant.wxSignature +'?url=' + url , (res) => {
 				console.log(res);
-				WXUtil.config(res.signature , res.nonceStr, res.timestamp);
+				WXUtil.config(res.signature , res.nonceStr, res.timestamp, (success) => {
+					callback(success)
+				});
 			});
-
 		}
 		render() {
 			const {classes} = this.props;
