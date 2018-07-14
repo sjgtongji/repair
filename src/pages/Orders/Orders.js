@@ -63,7 +63,7 @@ class Orders extends Component {
 				url = location.href.split('#')[0];
 
 			}else if(Constant.platform.os === 'ios'){
-				url = encodeURIComponent(location.href.split('#')[0]);
+				url = encodeURIComponent(Constant.wxUrl + '?code=' + Constant.requestParams.code + '&state=' + Constant.requestParams.state);
 			}
 			axios.get(Constant.wxSignature +'?url=' + url , (res) => {
 				console.log(res);

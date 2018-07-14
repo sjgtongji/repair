@@ -39,6 +39,7 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { withStyles } from '@material-ui/core/styles';
 import * as Constant from '../util/Constant';
 import * as WXUtil from '../util/WXUtil';
+import * as EncodeUtil from '../util/EncodeBase64';
 import CusButton from './Button';
 import ImgList from './ImgList';
 import * as axios from '../util/AxiosUtil';
@@ -111,10 +112,13 @@ class NewOrder extends Component {
 					showProgress : true
 				})
 				WXUtil.getImgData(imgIds[0], imgData =>{
-					// alert(imgData)
+					let imgAfterEncode = imgData;
+					if(Constant.platform.os === 'android'){
+						imgAfterEncode = 'data:image/jpeg;base64,' + imgData;
+					}
 					axios.post(Constant.uploadImage,
 					{
-						img : imgData
+						img : imgAfterEncode
 					}, res => {
 						this.state.imgIds.push(res.imageId);
 						this.setState({

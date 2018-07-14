@@ -91,9 +91,17 @@ class OrderDetail extends Component {
 		}
 
 		onZoom(img){
+			console.log(img);
 			this.setState({
 				zoomed : true,
-				zoomUrl : img.imgUrl
+				zoomUrl : Constant.apiPath + img.imgUrl
+			})
+		}
+
+		onZoomEnd(){
+			this.setState({
+				zoomed : false,
+				zoomUrl : ''
 			})
 		}
 		render() {
