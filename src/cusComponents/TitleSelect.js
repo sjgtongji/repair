@@ -47,6 +47,7 @@ class TitleSelect extends Component {
 			data: this.props.data,
 			disabled: false
 	  }
+		this.input = React.createRef();
 	}
 
 	static propTypes = {
@@ -60,9 +61,10 @@ class TitleSelect extends Component {
 
 	onOpen(event){
 		console.log('onOpen');
+		const node = this.input.current
 		this.setState({
 			open : true,
-			anchorEl : event.target,
+			anchorEl : ReactDom.findDOMNode(node),
 			disabled : true
 		})
 	}
@@ -120,14 +122,16 @@ class TitleSelect extends Component {
 		return (
 			<FormControl fullWidth={true}>
 				<InputLabel>{this.props.label}</InputLabel>
-				<Input {...this.props}
+				<Input
+					ref={this.input}
+					{...this.props}
 					className={classNames(className, classes.root)} onFocus={(event) => this.onOpen(event)}
 					autoFocus={false}
 					value={this.state.value}
 					disabled={this.state.disabled}
 					endAdornment={
 							<InputAdornment position="end">
-								<IconButton>
+								<IconButton onClick={() => this.onOpen()}>
 									<ArrowDropDownIcon></ArrowDropDownIcon>
 								</IconButton>
 							</InputAdornment>
