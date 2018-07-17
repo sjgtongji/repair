@@ -12,7 +12,7 @@ const sendInterval = 60;
 import { withStyles } from '@material-ui/core/styles';
 import {login} from 'actions/user';
 import {connect} from 'react-redux';
-var costa = require('img/costa.jpg');
+var costa = require('img/costa.png');
 class Home extends Component {
 		constructor(props) {
 				super(props);
@@ -232,7 +232,7 @@ class Home extends Component {
 							<Button variant="contained" color="primary" onClick={(event) => this.onLogin()} disabled={this.state.loginDisabled}>
 								登录
 							</Button>
-							<a href="tel:15221946385" className={classes.contact}>联系客服</a>
+							<a href={'tel:' + '15221946385'} className={classes.contact}>联系客服</a>
 							{/* <Link to="/service" className={classes.contact}>联系客服</Link> */}
 							<Progress open={this.state.showProgress}></Progress>
 						</div>
@@ -266,7 +266,6 @@ const styles = theme => ({
 		width : Constant.window.width * 0.4
 	},
 	contact : {
-		display : 'none',
 		alignSelf : 'flex-end',
 		marginTop : Constant.window.height * 0.05,
 		fontSize: 32
