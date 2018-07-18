@@ -159,6 +159,12 @@ class OrderDetail extends Component {
 												{order.storeAddr}
 											</Typography>
 										</div>
+										<div className={classes.row}>
+											<Typography variant="subheading">
+												门店电话:
+											</Typography>
+											<a href={'tel:' + order.storeTel} className={classes.contact}>{order.storeTel}</a>
+										</div>
 										<div className={classes.lastRow}>
 											<div className={classes.row}>
 												<Typography variant="body1">
@@ -198,9 +204,7 @@ class OrderDetail extends Component {
 											<Typography variant="subheading">
 												师傅电话:
 											</Typography>
-											<Typography variant="subheading">
-												{order.repairmanPhoneNum}
-											</Typography>
+											<a href={'tel:' + order.repairmanPhoneNum} className={classes.contact}>{order.repairmanPhoneNum}</a>
 										</div>
 									</CardContent>
 								</Card>
@@ -272,7 +276,9 @@ const styles = theme => ({
 		flexDirection : 'row',
 		justifyContent : 'flex-start',
 		marginTop : 10,
-		marginBottom : 10
+		marginBottom : 10,
+		flexWrap: 'wrap',
+		alignItems : 'center'
 	},
 	lastRow : {
 		display : 'flex',
@@ -306,6 +312,9 @@ const styles = theme => ({
 	cross : {
 		color : 'white',
 		width : 100
+	},
+	contact : {
+		fontSize: 32
 	},
 });
 const mapStateToProps = (state) => {
