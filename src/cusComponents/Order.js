@@ -52,15 +52,15 @@ class Order extends Component {
 			<Card className={classes.card}>
 				<CardContent>
 					<div className={classes.row}>
-						<Typography variant="title">
-							标题:
+						<Typography variant="title" className={classes.bold}>
+							报修类别:
 						</Typography>
 						<Typography variant="title">
 							{order.title}
 						</Typography>
 					</div>
 					<div className={classes.row}>
-						<Typography variant="subheading">
+						<Typography variant="subheading" className={classes.bold}>
 							门店:
 						</Typography>
 						<Typography variant="subheading">
@@ -69,7 +69,7 @@ class Order extends Component {
 					</div>
 					<div className={classes.lastRow}>
 						<div className={classes.row}>
-							<Typography variant="body1">
+							<Typography variant="body1" className={classes.bold}>
 								订单状态:
 							</Typography>
 							<Typography variant="body1" color="error">
@@ -77,7 +77,7 @@ class Order extends Component {
 							</Typography>
 						</div>
 						<div className={classes.row}>
-							<Typography variant="body1">
+							<Typography variant="body1" className={classes.bold}>
 								提交时间:
 							</Typography>
 							<Typography variant="body1">
@@ -114,6 +114,9 @@ const styles = theme => ({
 		justifyContent : 'space-between',
 		marginTop : 10,
 		marginBottom : 10
+	},
+	bold : {
+		fontWeight : 'bold'
 	}
 });
 export default withStyles(styles)(Order);

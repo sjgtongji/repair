@@ -131,43 +131,43 @@ class OrderDetail extends Component {
 								<Card className={classes.card}>
 									<CardContent>
 										<div className={classes.row}>
-											<Typography variant="title">
+											<Typography variant="title" className={classes.bold}>
 												订单信息
 											</Typography>
 										</div>
-										<div className={classes.row}>
-											<Typography variant="subheading">
-												标题:
+										<div className={classes.rowColumn}>
+											<Typography variant="subheading" className={classes.bold}>
+												报修类别:
 											</Typography>
 											<Typography variant="subheading">
 												{order.title}
 											</Typography>
 										</div>
-										<div className={classes.row}>
-											<Typography variant="subheading">
+										<div className={classes.rowColumn}>
+											<Typography variant="subheading" className={classes.bold}>
 												问题描述:
 											</Typography>
 											<Typography variant="subheading">
 												{order.desc}
 											</Typography>
 										</div>
-										<div className={classes.row}>
-											<Typography variant="subheading">
-												门店地址:
+										<div className={classes.rowColumn}>
+											<Typography variant="subheading" className={classes.bold}>
+												{'门店地址:'}
 											</Typography>
 											<Typography variant="subheading">
 												{order.storeAddr}
 											</Typography>
 										</div>
-										<div className={classes.row}>
-											<Typography variant="subheading">
+										<div className={classes.rowColumn}>
+											<Typography variant="subheading" className={classes.bold}>
 												门店电话:
 											</Typography>
 											<a href={'tel:' + order.storeTel} className={classes.contact}>{order.storeTel}</a>
 										</div>
 										<div className={classes.lastRow}>
 											<div className={classes.row}>
-												<Typography variant="body1">
+												<Typography variant="body1" className={classes.bold}>
 													订单状态:
 												</Typography>
 												<Typography variant="body1" color="error">
@@ -175,7 +175,7 @@ class OrderDetail extends Component {
 												</Typography>
 											</div>
 											<div className={classes.row}>
-												<Typography variant="body1">
+												<Typography variant="body1" className={classes.bold}>
 													提交时间:
 												</Typography>
 												<Typography variant="body1">
@@ -188,20 +188,20 @@ class OrderDetail extends Component {
 								<Card className={classes.card}>
 									<CardContent>
 										<div className={classes.row}>
-											<Typography variant="title">
+											<Typography variant="title" className={classes.bold}>
 												维修师傅信息
 											</Typography>
 										</div>
-										<div className={classes.row}>
-											<Typography variant="subheading">
+										<div className={classes.rowColumn}>
+											<Typography variant="subheading" className={classes.bold}>
 												师傅姓名:
 											</Typography>
 											<Typography variant="subheading">
 												{order.repairmanName}
 											</Typography>
 										</div>
-										<div className={classes.row}>
-											<Typography variant="subheading">
+										<div className={classes.rowColumn} >
+											<Typography variant="subheading" className={classes.bold}>
 												师傅电话:
 											</Typography>
 											<a href={'tel:' + order.repairmanPhoneNum} className={classes.contact}>{order.repairmanPhoneNum}</a>
@@ -211,7 +211,7 @@ class OrderDetail extends Component {
 								<Card className={classes.card}>
 									<CardContent>
 										<div className={classes.row}>
-											<Typography variant="title">
+											<Typography variant="title" className={classes.bold}>
 												图片信息
 											</Typography>
 										</div>
@@ -277,8 +277,16 @@ const styles = theme => ({
 		justifyContent : 'flex-start',
 		marginTop : 10,
 		marginBottom : 10,
-		flexWrap: 'wrap',
+		wordBreak: 'break-all',
 		alignItems : 'center'
+	},
+	rowColumn : {
+		display : 'flex',
+		flexDirection : 'column',
+		justifyContent : 'flex-start',
+		marginTop : 10,
+		marginBottom : 10,
+		wordBreak: 'break-all',
 	},
 	lastRow : {
 		display : 'flex',
@@ -316,6 +324,9 @@ const styles = theme => ({
 	contact : {
 		fontSize: 32
 	},
+	bold : {
+		fontWeight : 'bold'
+	}
 });
 const mapStateToProps = (state) => {
 		return {
