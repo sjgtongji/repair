@@ -128,9 +128,9 @@ class OrderDetail extends Component {
 								</div>
 							</div>:
 							<div className={classes.root}>
-								<Card className={classes.card}>
+								<Card className={classNames(classes.card, classes.orderInfo)}>
 									<CardContent>
-										<div className={classes.row}>
+										<div className={classes.titleMargin}>
 											<Typography variant="title" className={classes.bold}>
 												订单信息
 											</Typography>
@@ -185,9 +185,9 @@ class OrderDetail extends Component {
 										</div>
 									</CardContent>
 								</Card>
-								<Card className={classes.card}>
+								<Card className={classNames(classes.card, classes.repairInfo)}>
 									<CardContent>
-										<div className={classes.row}>
+										<div className={classes.titleMargin}>
 											<Typography variant="title" className={classes.bold}>
 												维修师傅信息
 											</Typography>
@@ -208,9 +208,9 @@ class OrderDetail extends Component {
 										</div>
 									</CardContent>
 								</Card>
-								<Card className={classes.card}>
+								<Card className={classNames(classes.card, classes.imgInfo)}>
 									<CardContent>
-										<div className={classes.row}>
+										<div className={classes.titleMargin}>
 											<Typography variant="title" className={classes.bold}>
 												图片信息
 											</Typography>
@@ -240,10 +240,10 @@ const styles = theme => ({
 		flexDirection : 'column',
 		alignItems : 'stretch',
 		width : Constant.window.width * 0.9,
-		height: Constant.window.height,
 		paddingLeft : Constant.window.width * 0.05,
 		paddingRight : Constant.window.width * 0.05,
 		overflowX : 'hidden',
+		overflowY : 'scroll'
 	},
 	codeDiv : {
 		display : 'flex',
@@ -269,7 +269,9 @@ const styles = theme => ({
 		justifyContent : 'space-around',
 		alignItems : 'stretch',
 		marginTop : 20,
-		marginBottom : 20
+		marginBottom : 20,
+		paddingTop : 20,
+		paddingBottom : 20
 	},
 	row : {
 		display : 'flex',
@@ -301,7 +303,7 @@ const styles = theme => ({
 		flexWrap: 'wrap',
 		justifyContent: 'flex-start',
 		overflow: 'hidden',
-		backgroundColor: '#eeeeee',
+		backgroundColor: '#97002d',
 		paddingTop : 10,
 		paddingBottom : 10
 	},
@@ -326,6 +328,23 @@ const styles = theme => ({
 	},
 	bold : {
 		fontWeight : 'bold'
+	},
+	titleMargin : {
+		display : 'flex',
+		flexDirection : 'row',
+		justifyContent : 'flex-start',
+		wordBreak: 'break-all',
+		alignItems : 'center',
+		marginBottom : 20
+	},
+	orderInfo : {
+
+	},
+	repairInfo : {
+
+	},
+	imgInfo : {
+
 	}
 });
 const mapStateToProps = (state) => {

@@ -52,10 +52,10 @@ class Order extends Component {
 			<Card className={classes.card}>
 				<CardContent>
 					<div className={classes.row}>
-						<Typography variant="title" className={classes.bold}>
+						<Typography variant="subheading" className={classes.bold}>
 							报修类别:
 						</Typography>
-						<Typography variant="title">
+						<Typography variant="subheading">
 							{order.title}
 						</Typography>
 					</div>
@@ -67,15 +67,18 @@ class Order extends Component {
 							{order.storeName}
 						</Typography>
 					</div>
+					<div className={classes.row}>
+						<Typography variant="body1" className={classes.bold}>
+							订单状态:
+						</Typography>
+						<Typography variant="body1" color="error">
+							{this.mapOrderState(order.orderState)}
+						</Typography>
+					</div>
+				</CardContent>
+				<CardActions>
 					<div className={classes.lastRow}>
-						<div className={classes.row}>
-							<Typography variant="body1" className={classes.bold}>
-								订单状态:
-							</Typography>
-							<Typography variant="body1" color="error">
-								{this.mapOrderState(order.orderState)}
-							</Typography>
-						</div>
+						<Button size="medium" onClick={(event) => this.props.onDetail(order)} className={classes.bold}>订单详情</Button>
 						<div className={classes.row}>
 							<Typography variant="body1" className={classes.bold}>
 								提交时间:
@@ -85,9 +88,6 @@ class Order extends Component {
 							</Typography>
 						</div>
 					</div>
-				</CardContent>
-				<CardActions>
-					<Button size="medium" onClick={(event) => this.props.onDetail(order)}>订单详情</Button>
 				</CardActions>
 			</Card>
 		);
@@ -113,7 +113,8 @@ const styles = theme => ({
 		flexDirection : 'row',
 		justifyContent : 'space-between',
 		marginTop : 10,
-		marginBottom : 10
+		marginBottom : 10,
+		flex : 1
 	},
 	bold : {
 		fontWeight : 'bold'
