@@ -243,7 +243,8 @@ const styles = theme => ({
 		paddingLeft : Constant.window.width * 0.05,
 		paddingRight : Constant.window.width * 0.05,
 		overflowX : 'hidden',
-		overflowY : 'scroll'
+		overflowY : 'scroll',
+		backgroundColor: '#97002d',
 	},
 	codeDiv : {
 		display : 'flex',
@@ -303,7 +304,7 @@ const styles = theme => ({
 		flexWrap: 'wrap',
 		justifyContent: 'flex-start',
 		overflow: 'hidden',
-		backgroundColor: '#97002d',
+		backgroundColor: '#eeeeee',
 		paddingTop : 10,
 		paddingBottom : 10
 	},

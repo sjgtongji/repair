@@ -52,18 +52,18 @@ class Order extends Component {
 			<Card className={classes.card}>
 				<CardContent>
 					<div className={classes.row}>
-						<Typography variant="subheading" className={classes.bold}>
+						<Typography variant="body1" className={classes.bold}>
 							报修类别:
 						</Typography>
-						<Typography variant="subheading">
+						<Typography variant="body1">
 							{order.title}
 						</Typography>
 					</div>
 					<div className={classes.row}>
-						<Typography variant="subheading" className={classes.bold}>
+						<Typography variant="body1" className={classes.bold}>
 							门店:
 						</Typography>
-						<Typography variant="subheading">
+						<Typography variant="body1">
 							{order.storeName}
 						</Typography>
 					</div>
@@ -78,7 +78,7 @@ class Order extends Component {
 				</CardContent>
 				<CardActions>
 					<div className={classes.lastRow}>
-						<Button size="medium" onClick={(event) => this.props.onDetail(order)} className={classes.bold}>订单详情</Button>
+						<Button size="medium" onClick={(event) => this.props.onDetail(order)} className={classes.bold}>点击查看订单详情</Button>
 						<div className={classes.row}>
 							<Typography variant="body1" className={classes.bold}>
 								提交时间:
@@ -105,8 +105,8 @@ const styles = theme => ({
 		display : 'flex',
 		flexDirection : 'row',
 		justifyContent : 'flex-start',
-		marginTop : 10,
-		marginBottom : 10
+		marginTop : 20,
+		marginBottom : 20
 	},
 	lastRow : {
 		display : 'flex',
