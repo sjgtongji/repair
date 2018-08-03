@@ -179,7 +179,7 @@ class CusSelect extends Component {
 							anchorEl={this.state.anchorEl}
 							PaperProps={{
 								style: {
-									maxHeight: ITEM_HEIGHT * 7.5,
+									maxHeight: ITEM_HEIGHT * 12,
 									width: this.state.anchorEl? this.state.anchorEl.getBoundingClientRect().right - this.state.anchorEl.getBoundingClientRect().left : 0
 								}
 							}}>
@@ -196,7 +196,7 @@ class CusSelect extends Component {
 								/>
 							</MenuItem>
 							{this.state.data.map(item => (
-								<MenuItem key={item.storeId} onClick={(event) => this.handleClose(item)}>
+								<MenuItem key={item.storeId} onClick={(event) => this.handleClose(item)} className={classes.item}>
 									{item.storeName}
 								</MenuItem>
 							))}
@@ -219,6 +219,12 @@ const styles = theme => ({
 	},
 	search : {
 		height : Constant.window.height * 0.06,
+	},
+	item : {
+		height : ITEM_HEIGHT,
+		display : 'flex',
+		flexDirection :'row',
+		alignItems : 'center'
 	}
 });
 export default withStyles(styles)(CusSelect);

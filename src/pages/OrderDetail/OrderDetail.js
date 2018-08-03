@@ -131,7 +131,7 @@ class OrderDetail extends Component {
 								<Card className={classNames(classes.card, classes.orderInfo)}>
 									<CardContent>
 										<div className={classes.titleMargin}>
-											<Typography variant="title" className={classes.bold}>
+											<Typography variant="subheading" className={classes.bold}>
 												订单信息
 											</Typography>
 										</div>
@@ -188,7 +188,7 @@ class OrderDetail extends Component {
 								<Card className={classNames(classes.card, classes.repairInfo)}>
 									<CardContent>
 										<div className={classes.titleMargin}>
-											<Typography variant="title" className={classes.bold}>
+											<Typography variant="subheading" className={classes.bold}>
 												维修师傅信息
 											</Typography>
 										</div>
@@ -211,7 +211,7 @@ class OrderDetail extends Component {
 								<Card className={classNames(classes.card, classes.imgInfo)}>
 									<CardContent>
 										<div className={classes.titleMargin}>
-											<Typography variant="title" className={classes.bold}>
+											<Typography variant="subheading" className={classes.bold}>
 												图片信息
 											</Typography>
 										</div>

@@ -146,7 +146,7 @@ class TitleSelect extends Component {
 								}
 							}}>
 							{Constant.titles.map(item => (
-								<MenuItem key={item} onClick={(event) => this.handleClose(item)}>
+								<MenuItem key={item} onClick={(event) => this.handleClose(item)} className={classes.item}>
 									{item}
 								</MenuItem>
 							))}
@@ -169,6 +169,12 @@ const styles = theme => ({
 	},
 	search : {
 		height : Constant.window.height * 0.06,
+	},
+	item : {
+		height : ITEM_HEIGHT,
+		display : 'flex',
+		flexDirection :'row',
+		alignItems : 'center'
 	}
 });
 export default withStyles(styles)(TitleSelect);
