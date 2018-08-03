@@ -295,7 +295,7 @@ const styles = theme => ({
 		display : 'flex',
 		flexDirection : 'row',
 		justifyContent : 'space-between',
-		marginTop : 10,
+		marginTop : 50,
 		marginBottom : 10
 	},
 	imgListRoot : {
