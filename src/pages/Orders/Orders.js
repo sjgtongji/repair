@@ -133,8 +133,8 @@ const styles = theme => ({
 		alignItems : 'center'
 	},
 	icon :{
-		width : 50,
-		height : 50
+		width : 25,
+		height : 25
 	},
 	wrapper :{
 		display : 'flex',

@@ -28,18 +28,6 @@ import {
 	Typography,
 	CardActions
 }from '@material-ui/core';
-let order = 	{
-		orderId:2,
-		storeId:1,
-		storeName:'吴江路店',
-		storeAddr:'吴江路店189号',
-		managerId:1,
-		repairmanId:2,
-		title:'咖啡机维修',
-		orderState: '01',
-		createTime: 0,
-		desc:'咖啡机维修'
-	};
 class OrderDetail extends Component {
 		constructor(props) {
 			super(props);
@@ -79,7 +67,7 @@ class OrderDetail extends Component {
 				return '待维修'
 			}
 			if(orderState == '01'){
-				return '维修完成';
+				return '已完成';
 			}
 			return '维修中';
 		}
@@ -101,6 +89,28 @@ class OrderDetail extends Component {
 			this.setState({
 				zoomed : false,
 				zoomUrl : ''
+			})
+		}
+
+		onFinish(){
+			axios.post(Constant.completeOrder,
+			{
+				userId: this.props.user.userId,
+				orderId: this.props.user.orderId
+			},
+			res => {
+				var order = this.state.order;
+				order.orderState = '01';
+				console.log('completeOrder:' + res);
+				this.setState({
+					order : order,
+					showProgress : false
+				})
+				alert('订单设置成功');
+			},error => {
+				this.setState({
+					showProgress : false
+				})
 			})
 		}
 		render() {
@@ -217,6 +227,17 @@ class OrderDetail extends Component {
 										<div className={classes.imgListRoot}>
 											<ImgList data={order.imgs} onDelete={this.onDelete.bind(this)} onAdd={this.onAdd.bind(this)} onZoom={this.onZoom.bind(this)} isDetail={true}></ImgList>
 										</div>
+										{
+											this.props.user.roleCode == '01' && this.state.order.orderState != '01'?
+											<div className={classes.finish}>
+												<Button variant="contained" color="primary" onClick={(event) => this.onFinish()} className={classes.finishBtn}>
+													维修完成
+												</Button>
+											</div>:
+											null
+										}
+
+
 									</CardContent>
 								</Card>
 								<Progress open={this.state.showProgress}></Progress>
@@ -344,6 +365,15 @@ const styles = theme => ({
 
 	},
 	imgInfo : {
+
+	},
+	finish : {
+		marginTop : 30,
+		display: 'flex',
+		flexDirection : 'column',
+		alignItems : 'stretch'
+	},
+	finishBtn:{
 
 	}
 });

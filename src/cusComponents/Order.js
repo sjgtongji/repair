@@ -41,7 +41,7 @@ class Order extends Component {
 			return '待维修'
 		}
 		if(orderState == '01'){
-			return '维修完成';
+			return '已完成';
 		}
 		return '维修中';
 	}

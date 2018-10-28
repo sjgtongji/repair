@@ -9,6 +9,7 @@ export const getOrderList = '/rest/getOrderList';
 export const submitOrder = '/rest/submitOrder';
 export const uploadImage = '/rest/uploadImage';
 export const getDetailOrder = '/rest/getDetailOrder';
+export const completeOrder = '/rest/completeOrder';
 export const wxSignature = '/wx/getWxSignature';
 export const wxGetOpenId = '/wx/getWxOpenId'
 export const appSecret = '511f3f055b1b2582560bc89fac16c05f';
